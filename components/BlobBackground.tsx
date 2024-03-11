@@ -87,7 +87,7 @@ const BlobBackground: React.FC = () => {
         };
         return (
           <svg
-            key={index}
+            key={"blob" + index}
             className={`rounded-full absolute opacity-50 xl:opacity-100`}
             style={customStyle}
           ></svg>

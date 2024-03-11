@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@font-face {
+  font-family: Maehongson;
+  src: url('../assets/Maehongson/pk_maehongson_medium-webfont.eot');
+  src: url('../assets/Maehongson/pk_maehongson_medium-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../assets/Maehongson/pk_maehongson_medium-webfont.woff2') format('woff2'),
+       url('../assets/Maehongson/pk_maehongson_medium-webfont.woff') format('woff'),
+       url('../assets/Maehongson/pk_maehongson_medium-webfont.ttf') format('truetype');
+  font-weight: medium;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: Maehongson;
+  src: url('../assets/Maehongson/pk_maehongson-semi_bold-webfont.eot');
+  src: url('../assets/Maehongson/pk_maehongson-semi_bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../assets/Maehongson/pk_maehongson-semi_bold-webfont.woff2') format('woff2'),
+       url('../assets/Maehongson/pk_maehongson-semi_bold-webfont.woff') format('woff'),
+       url('../assets/Maehongson/pk_maehongson-semi_bold-webfont.ttf') format('truetype');
+  font-weight: 600;
+  font-style: 600;
+}
+
+@font-face {
+  font-family: Maehongson;
+  src: url('../assets/Maehongson/pk_maehongson-regular-webfont.woff2') format('woff2'),
+  url('../assets/Maehongson/pk_maehongson-regular-webfont.woff') format('woff');
+  font-weight: regular;
+  font-style: regular;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+main {
+  @apply font-maehongson;
+}
+
+h1 {
+  @apply text-6xl;
+}
+
+h2 {
+  @apply text-5xl;
+}
+
+h3 {
+  @apply text-4xl;
+}
+
+h4 {
+  @apply text-3xl;
+}
+
+.glassmorphism {
+  @apply border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur;
+}
+
+.paragraph {
+  @apply text-lg;
+}
+
+.topic-tag {
+  @apply px-6 p-1 cursor-pointer rounded-full paragraph text-white;
+}
