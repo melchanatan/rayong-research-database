@@ -82,6 +82,32 @@ h4 {
   @apply text-3xl;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  transition: all;
+  border-radius: 10px;
+  background: linear-gradient(179deg, #2BAAD9 -8.63%, #83BB3F 120.94%);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(179deg, #2BAAD9 32%, #83BB3F 160%);
+}
+
+.scroll-left {
+  direction: ltr;
+}
+
 .glassmorphism {
   @apply border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur;
 }

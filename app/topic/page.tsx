@@ -4,19 +4,22 @@ import { IoIosArrowBack } from "react-icons/io";
 const TopicPage: React.FC = () => {
   return (
     <ul className="max-w-[1500px] w-[95vw] ">
-      <li className="flex items-center mb-3 ">
+      <li className="flex items-center mb-3">
         <IoIosArrowBack className="w-[30px] h-[30px]" />
         <h3 className="font-semibold">Topic Page</h3>
       </li>
       <li className="flex gap-6">
-        <ul className="w-[55%] flex flex-col gap-3 overflow-y-auto h-[70vh]">
+        <ul
+          dir="rtl"
+          className="w-[55%] flex flex-col gap-3 overflow-y-auto h-[80vh] pl-3"
+        >
           <ResearchListView />
           <ResearchListView />
           <ResearchListView />
           <ResearchListView />
           <ResearchListView />
         </ul>
-        <div className="flex-1 glassmorphism py-8 rounded-lg px-6">
+        <div className="flex-1 glassmorphism py-8 rounded-lg px-6 ">
           <h3>บทคัดย่อ</h3>
           <p className="paragraph">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -41,7 +44,7 @@ export default TopicPage;
 
 const ResearchListView = () => {
   return (
-    <li className="glassmorphism px-8 py-3 rounded-lg">
+    <li dir="ltr" className="glassmorphism px-8 py-3 rounded-lg">
       <h3 className="inline-flex items-center gap-3 flex-wrap">
         หัวข้อ
         <span className="topic-tag bg-red-500 !py-0 !px-3">หมวดหมู่ข้อมูล</span>
