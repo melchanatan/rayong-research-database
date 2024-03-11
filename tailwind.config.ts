@@ -8,11 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        maehongson: ['Maehongson', 'sans-serif'],
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
+        "gradient-glasses":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        "primary-blue": "#2BAAD9",
+        "primary-green": "#83BB3F"
+      }
     },
   },
   plugins: [],

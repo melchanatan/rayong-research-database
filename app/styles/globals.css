@@ -16,6 +16,28 @@
   }
 }
 
+@font-face {
+  font-family: Maehongson;
+  src: url('../assets/fonts/Maehongson/pk_maehongson_medium-webfont.eot');
+  src: url('../assets/fonts/Maehongson/pk_maehongson_medium-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../assets/fonts/Maehongson/pk_maehongson_medium-webfont.woff2') format('woff2'),
+       url('../assets/fonts/Maehongson/pk_maehongson_medium-webfont.woff') format('woff'),
+       url('../assets/fonts/Maehongson/pk_maehongson_medium-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Maehongson;
+  src: url('../assets/fonts/Maehongson/pk_maehongson-semi_bold-webfont.eot');
+  src: url('../assets/fonts/Maehongson/pk_maehongson-semi_bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../assets/fonts/Maehongson/pk_maehongson-semi_bold-webfont.woff2') format('woff2'),
+       url('../assets/fonts/Maehongson/pk_maehongson-semi_bold-webfont.woff') format('woff'),
+       url('../assets/fonts/Maehongson/pk_maehongson-semi_bold-webfont.ttf') format('truetype');
+  font-weight: 600;
+  font-style: 600;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -30,4 +52,46 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* body::before, body
+body::after {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		--grad: 
+			radial-gradient(at 25%, 
+					red, #{rgba(red, .2)} 50%, transparent 70%);
+		--mask: var(--grad), var(--grad), var(--grad);
+		-webkit-mask: var(--mask);
+		-webkit-mask-composite: source-in;
+						mask: var(--mask);
+						mask-composite: intersect;
+		mix-blend-mode: color;
+		content: ''
+	}
+	
+body::before {
+		background: #000;
+		filter: url(#f)
+	}
+	
+body::after {
+		background: linear-gradient(90deg, purple, navy 20%, aqua);
+	} */
+
+main {
+  @apply font-maehongson;
+}
+
+h1 {
+  @apply text-6xl;
+}
+
+.glassmorphism {
+  @apply border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur;
+}
+
+.paragraph {
+  @apply text-lg;
 }
