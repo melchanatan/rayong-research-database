@@ -119,3 +119,11 @@ h4 {
 .topic-tag {
   @apply px-6 p-1 cursor-pointer rounded-full paragraph text-white;
 }
+
+.box-container {
+  @apply glassmorphism px-8 py-3 rounded-lg;
+}
+
+.main-container {
+  @apply max-w-[1500px] w-[95vw];
+}

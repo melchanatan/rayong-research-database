@@ -2,7 +2,7 @@ import React from "react";
 
 const BlobBackground: React.FC = () => {
   const blueGradient: string =
-    "radial-gradient(circle, rgba(43,170,217,1) 0%, rgba(13,84,149,1) 68%);";
+    "radial-gradient(circle, rgba(43,170,217,1) 0%, rgba(13,84,149,1) 68%)";
   const greenGradient: string =
     "radial-gradient(circle, rgba(121,170,62,1) 0%, rgba(4,251,58,0.36299765807962525) 100%)";
 
