@@ -109,11 +109,11 @@ h4 {
 }
 
 .glassmorphism {
-  @apply border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur;
+  @apply border border-gray-300 bg-white/30 shadow-[inset_0px_0px_20px_0_rgb(199,199,199,0.2)] backdrop-blur;
 }
 
 .paragraph {
-  @apply text-lg;
+  @apply text-lg leading-6;
 }
 
 .topic-tag {
@@ -121,9 +121,17 @@ h4 {
 }
 
 .box-container {
-  @apply glassmorphism px-8 py-3 rounded-lg;
+  @apply glassmorphism px-8 py-5 rounded-lg;
 }
 
 .main-container {
   @apply max-w-[1500px] w-[95vw];
+}
+
+.form-textarea {
+  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
+}
+
+.form-input {
+  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
 }
