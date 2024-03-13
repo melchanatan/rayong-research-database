@@ -52,8 +52,7 @@ const PublishPage = () => {
   const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   return (
     <PublishFormContext.Provider value={{ state, dispatch }}>
-      <section className="main-container mt-10">
-        {state.header + " hellow"}
+      <section className="max-w-[1200px] w-full px-10 mt-10">
         <h1 className="head_text text-left">
           <span>เพยแพร่งานวิจัย</span>
         </h1>
@@ -65,7 +64,7 @@ const PublishPage = () => {
               onChange={(e) =>
                 dispatch({ type: "SET_HEADER", payload: e.target.value })
               }
-              placeholder="Enter your Item name"
+              placeholder="พิมพ์ตรงนี้..."
               required
               className="form-input"
             />
@@ -114,7 +113,7 @@ const PublishPage = () => {
             <input
               value={post.name}
               onChange={(e) => setPost({ ...post, name: e.target.value })}
-              placeholder="Enter your Item name"
+              placeholder="พิมพ์ตรงนี้..."
               required
               className="form-input"
             />
@@ -127,7 +126,7 @@ const PublishPage = () => {
             <input
               value={post.name}
               onChange={(e) => setPost({ ...post, name: e.target.value })}
-              placeholder="Enter your Item name"
+              placeholder="พิมพ์ตรงนี้..."
               required
               className="form-input"
             />
@@ -138,7 +137,7 @@ const PublishPage = () => {
             </span>
             <Dropzone post={post} setPost={setPost} />
           </label>
-          <div className="flex-end mx-3 mb-5 gap-4">
+          <div className="flex items-center mx-3 mb-5 gap-10">
             <a href="/admin/" className="text-gray-500 text-md">
               Cancel
             </a>
@@ -148,7 +147,7 @@ const PublishPage = () => {
               disabled={submitting}
               className="text-white px-5 py-1.5 text-md rounded-full bg-primary-green"
             >
-              sumbit
+              ส่งคำตอบ
             </button>
           </div>
         </form>

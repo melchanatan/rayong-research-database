@@ -47,7 +47,7 @@ const TableInputForm = () => {
                 payload: { index: index, value: e.target.value },
               });
             }}
-            placeholder="Enter your Item name"
+            placeholder="พิมพ์ตรงนี้..."
             required
             className="form-input"
           />
@@ -60,7 +60,7 @@ const TableInputForm = () => {
                 payload: { index: index, value: e.target.value },
               });
             }}
-            placeholder="Enter your Item name"
+            placeholder="พิมพ์ตรงนี้..."
             required
             className="form-input"
           />
@@ -81,14 +81,14 @@ const TableInputForm = () => {
       <input
         value={currentInputCol1}
         onChange={(e) => setCurrentInputCol1(e.target.value)}
-        placeholder="Enter your Item name"
+        placeholder="พิมพ์ตรงนี้..."
         required
         className="form-input"
       />
       <input
         value={currentInputCol2}
         onChange={(e) => setCurrentInputCol2(e.target.value)}
-        placeholder="Enter your Item name"
+        placeholder="พิมพ์ตรงนี้..."
         required
         className="form-input"
       />
