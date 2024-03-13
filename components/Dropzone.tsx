@@ -61,12 +61,15 @@ const Dropzone = ({ post, setPost, className }) => {
         })}
       >
         <input {...getInputProps({ name: "file" })} />
-        <div className="flex flex-col items-center justify-center gap-4 py-7 bg-slate-100 rounded-xl">
+        <div
+          className="flex flex-col items-center justify-center gap-4 py-10 bg-slate-100/40 rounded-xl border-gray-500 border-[1px] mt-2 text-gray-400"
+          style={{ borderStyle: isDragActive ? "dashed" : "solid" }}
+        >
           {/* <ArrowUpTrayIcon className="h-5 w-5 fill-current" /> */}
           {isDragActive ? (
-            <p>Drop the files here ...</p>
+            <p>วางตรงนี้เลย ...</p>
           ) : (
-            <p>Drag & drop files here, or click to select files</p>
+            <p>ลากและวางตรงนี้เพื่ออัปโหลด </p>
           )}
         </div>
       </div>
@@ -92,7 +95,7 @@ const Dropzone = ({ post, setPost, className }) => {
 
         {/* Accepted files */}
         <h3 className="title mt-10 border-b pb-3 text-lg font-semibold text-stone-600">
-          Image Preview
+          ไฟล์ของคุณ
         </h3>
         <ul className="mt-6 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
           {files.map((file) => (

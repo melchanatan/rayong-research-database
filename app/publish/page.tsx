@@ -1,7 +1,9 @@
 "use client";
 import Dropzone from "@/components/Dropzone";
+import TableInputForm from "@/components/TableInputForm";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { IoIosAdd } from "react-icons/io";
 
 const PublishPage = () => {
   const router = useRouter();
@@ -43,16 +45,12 @@ const PublishPage = () => {
   };
 
   return (
-    <section className="main-container">
+    <section className="main-container mt-10">
       <h1 className="head_text text-left">
-        <span> Item</span>
+        <span>เพยแพร่งานวิจัย</span>
       </h1>
-      <p className="desc text-left max-w-md">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum, ex id!
-        Fuga quos illum vel iusto odio nulla molestias hic?
-      </p>
 
-      <form className="mt-10 w-full max-w-screen-2xl flex flex-col gap-7 box-container">
+      <form className="mt-3 w-full max-w-screen-2xl flex flex-col gap-7 box-container">
         <label>
           <span className="font-semibold text-gray-700">หัวข้องานวิจัย</span>
           <input
@@ -88,9 +86,9 @@ const PublishPage = () => {
         </label>
 
         <label>
-          <span className=" font-semibold text-base text-gray-700">
+          <span className=" font-semibold text-base text-gray-600">
             หมวดหมู่งานวิจัย{" "}
-            <span className="font-normal">(#sensor, #acuator, #mechanic)</span>
+            <span className="font-normal">(#ป่าไม้​ #การคมนาคม)</span>
           </span>
           <input
             value={post.tag}
@@ -112,19 +110,7 @@ const PublishPage = () => {
           />
         </label>
 
-        <label>
-          <span className=" font-semibold text-base text-gray-700">
-            ชื่อผู้ค้นคว้า
-          </span>
-          <input
-            value={post.name}
-            onChange={(e) => setPost({ ...post, name: e.target.value })}
-            placeholder="Enter your Item name"
-            required
-            className="form-input"
-          />
-        </label>
-
+        <TableInputForm></TableInputForm>
         <label>
           <span className=" font-semibold text-base text-gray-700">
             อีเมลในการติดต่อ
@@ -140,7 +126,7 @@ const PublishPage = () => {
 
         <label>
           <span className=" font-semibold text-base text-gray-700">
-            Image for your Item
+            ไฟล์ประกอบการวิจัยของคุณ
           </span>
           <Dropzone post={post} setPost={setPost} />
         </label>
