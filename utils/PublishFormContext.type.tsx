@@ -1,6 +1,6 @@
 export interface PublishFormState {
   header: string;
-  researchers: Array<Researcher>;
+  researchers: [Researcher];
 }
 
 export interface Researcher {
