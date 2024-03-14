@@ -139,3 +139,7 @@ h4 {
 .square-icon-button {
   @apply rounded-lg w-[2.7rem] h-[2.7rem] flex justify-center items-center hover:brightness-75 transition-all duration-300;
 }
+
+.button-outline {
+  @apply text-lg px-7 py-1 border-[1px] border-black font-semibold rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-black hover:text-white;
+}

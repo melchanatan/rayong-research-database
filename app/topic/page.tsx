@@ -1,4 +1,6 @@
+"use client";
 import ResearchHeader from "@/components/ResearchHeader";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 
@@ -44,10 +46,20 @@ const TopicPage: React.FC = () => {
 export default TopicPage;
 
 const ResearchListView = () => {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    router.push("/research");
+  };
   return (
-    <li dir="ltr" className="box-container flex flex-col gap-3">
+    <a
+      dir="ltr"
+      className="box-container flex flex-col gap-3 hover:shadow-lg cursor-pointer"
+      onClick={handleClick}
+    >
       <ResearchHeader />
       <p className="text-gray-600">กรมอุทยานแห่งชาติ สัตว์ป่า และพันธุ์พืช</p>
-    </li>
+    </a>
   );
 };
