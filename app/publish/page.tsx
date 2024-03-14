@@ -9,6 +9,7 @@ import {
   publishFormDetails,
   publishFormReducer,
 } from "@/utils/PublishFormContext";
+import InputForm from "@/components/InputForm";
 
 const PublishPage = () => {
   const router = useRouter();
@@ -57,18 +58,13 @@ const PublishPage = () => {
           <span>เพยแพร่งานวิจัย</span>
         </h1>
         <form className="mt-3 w-full max-w-screen-2xl flex flex-col gap-7 box-container">
-          <label>
-            <span className="font-semibold text-gray-700">หัวข้องานวิจัย</span>
-            <input
-              value={state.header}
-              onChange={(e) =>
-                dispatch({ type: "SET_HEADER", payload: e.target.value })
-              }
-              placeholder="พิมพ์ตรงนี้..."
-              required
-              className="form-input"
-            />
-          </label>
+          <InputForm
+            label="หัวข้องานวิจัย"
+            onChange={(e) =>
+              dispatch({ type: "SET_HEADER", payload: e.target.value })
+            }
+            value={state.header}
+          />
           {/* <label>
             <span className=" font-semibold text-base text-gray-700"></span>
             <input
