@@ -10,7 +10,7 @@ const InputForm = ({
   label: string;
   onChange: any;
   value: string;
-  isTextArea: boolean;
+  isTextArea?: boolean;
 }) => {
   return (
     <label>

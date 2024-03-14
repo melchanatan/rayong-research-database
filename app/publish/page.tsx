@@ -65,30 +65,15 @@ const PublishPage = () => {
             }
             value={state.header}
           />
-          {/* <label>
-            <span className=" font-semibold text-base text-gray-700"></span>
-            <input
-              value={post.stockMax}
-              onChange={(e) => setPost({ ...post, stockMax: e.target.value })}
-              placeholder="พิมพ์เลย"
-              required
-              type="number"
-              className="w-2 form-input"
-            />
-          </label> */}
-          <label>
-            <span className=" font-semibold text-base text-gray-700">
-              บทคัดย่องานวิจัย
-            </span>
-            <textarea
-              value={post.description}
-              onChange={(e) =>
-                setPost({ ...post, description: e.target.value })
-              }
-              placeholder="พิมพ์ตรงนี้..."
-              className="form-textarea"
-            />
-          </label>
+          <InputForm
+            label="บทคัดย่องานวิจัย"
+            onChange={(e) =>
+              dispatch({ type: "SET_ABSTRACT", payload: e.target.value })
+            }
+            isTextArea={true}
+            value={state.abstract}
+          />
+
           <label>
             <span className=" font-semibold text-base text-gray-600">
               หมวดหมู่งานวิจัย{" "}
@@ -102,31 +87,22 @@ const PublishPage = () => {
               className="form-input"
             />
           </label>
-          <label>
-            <span className=" font-semibold text-base text-gray-700">
-              องกรณ์
-            </span>
-            <input
-              value={post.name}
-              onChange={(e) => setPost({ ...post, name: e.target.value })}
-              placeholder="พิมพ์ตรงนี้..."
-              required
-              className="form-input"
-            />
-          </label>
+          <InputForm
+            label="องกรณ์"
+            onChange={(e) =>
+              dispatch({ type: "SET_ORGANIZATION", payload: e.target.value })
+            }
+            value={state.organization}
+          />
           <TableInputForm></TableInputForm>
-          <label>
-            <span className=" font-semibold text-base text-gray-700">
-              อีเมลในการติดต่อ
-            </span>
-            <input
-              value={post.name}
-              onChange={(e) => setPost({ ...post, name: e.target.value })}
-              placeholder="พิมพ์ตรงนี้..."
-              required
-              className="form-input"
-            />
-          </label>
+          <InputForm
+            label="อีเมลในการติดต่อ"
+            onChange={(e) =>
+              dispatch({ type: "SET_CONTACT_EMAIL", payload: e.target.value })
+            }
+            value={state.contactEmail}
+          />
+
           <label>
             <span className=" font-semibold text-base text-gray-700">
               ไฟล์ประกอบการวิจัยของคุณ

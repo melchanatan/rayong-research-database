@@ -1,5 +1,9 @@
 export interface PublishFormState {
   header: string;
+  abstract: string;
+  tags: [string];
+  organization: string;
+  contactEmail: string;
   researchers: [Researcher];
 }
 
