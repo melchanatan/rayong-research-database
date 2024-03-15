@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { IoSearch } from "react-icons/io5";
 import BlobBackground from "@/components/BlobBackground";
+import ParticleComponent from "@/components/ParticleComponent";
 const HomePage: React.FC = () => {
   const router = useRouter();
 
@@ -14,6 +15,9 @@ const HomePage: React.FC = () => {
 
   return (
     <>
+      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full">
+        <ParticleComponent className="w-full h-full absolute" />
+      </div>
       <a
         onClick={handleClick}
         className="top-[100px] left-[400px] absolute bg-red-500 hover:scale-110 transition-all duration-300 topic-tag"
