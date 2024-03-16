@@ -67,8 +67,18 @@ const HomePage: React.FC = () => {
       >
         {topics.map((topic, index) => {
           const distanceFromCenter = Math.sqrt(
-            Math.pow(window.innerWidth / 2 - (position.x + topic.x) * 0.5, 2) +
-              Math.pow(window.innerHeight / 2 - (position.y + topic.y) * 0.5, 2)
+            Math.pow(window.innerWidth, 2) -
+              Math.pow(
+                window.innerWidth / 2 -
+                  (Math.abs(position.x) + Math.abs(topic.x)) * 4,
+                2
+              ) +
+              Math.pow(window.innerHeight, 2) -
+              Math.pow(
+                window.innerHeight / 2 -
+                  (Math.abs(position.y) + Math.abs(topic.y)) * 4,
+                2
+              )
           );
           // console.log("postion.x", position.x);
           // console.log("postion y", position.y);
@@ -81,7 +91,7 @@ const HomePage: React.FC = () => {
               content={topic.name}
               top={topic.y}
               left={topic.x}
-              scale={distanceFromCenter / 500}
+              scale={distanceFromCenter / 1000}
             />
           );
         })}
