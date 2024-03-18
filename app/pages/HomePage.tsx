@@ -17,8 +17,13 @@ const HomePage: React.FC = () => {
       x: 200,
       y: 0,
     },
+    {
+      name: "Topic 2",
+      x: 500,
+      y: 400,
+    },
   ];
-  const dragCoefficent = 0.4;
+  const dragCoefficent = 0.9;
   const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -37,6 +42,10 @@ const HomePage: React.FC = () => {
       y: event.clientY - position.y,
     });
   };
+
+  const maxDistanceFromCenter = Math.sqrt(
+    window.innerWidth ** 2 + window.innerHeight ** 2
+  );
 
   const handleMouseMove = (event) => {
     if (isDragging) {
@@ -59,46 +68,40 @@ const HomePage: React.FC = () => {
       onMouseUp={handleMouseUp}
     >
       <div
-        className="w-screen h-screen flex flex-col justify-center items-center absolute "
+        className="w-screen h-screen absolute "
         style={{
           top: position.y * dragCoefficent,
           left: position.x * dragCoefficent,
         }}
       >
         {topics.map((topic, index) => {
-          const distanceFromCenter = Math.sqrt(
-            Math.pow(window.innerWidth, 2) -
-              Math.pow(
-                window.innerWidth / 2 -
-                  (Math.abs(position.x) + Math.abs(topic.x)) * 4,
-                2
-              ) +
-              Math.pow(window.innerHeight, 2) -
-              Math.pow(
-                window.innerHeight / 2 -
-                  (Math.abs(position.y) + Math.abs(topic.y)) * 4,
-                2
-              )
-          );
-          // console.log("postion.x", position.x);
-          // console.log("postion y", position.y);
-          // console.log("distanceFromCenter", distanceFromCenter);
+          const distanceFromCenter =
+            maxDistanceFromCenter -
+            Math.sqrt(
+              Math.pow(window.innerWidth / 2 - (position.x + topic.x), 2) +
+                Math.pow(window.innerHeight / 2 - (position.y + topic.y), 2)
+            );
 
+          const scale = Math.min(distanceFromCenter / 700, 2.5);
+
+          const randomPosY = Math.random() * 50;
+          const randomPosX = Math.random() * 50;
           return (
             <FloatingButton
               key={"topic" + index}
               handleClick={handleClick}
               content={topic.name}
-              top={topic.y}
-              left={topic.x}
-              scale={distanceFromCenter / 1000}
+              top={topic.y + randomPosY}
+              left={topic.x + randomPosX}
+              scale={scale}
             />
           );
         })}
       </div>
-      {/*<div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full">
-       <ParticleComponent className="w-full h-full absolute" /> 
-      </div> */}
+
+      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full">
+        <ParticleComponent className="w-full h-full absolute" />
+      </div>
 
       <div
         className="translate-y-[-50px] flex flex-col align-middle text-center "
@@ -130,8 +133,10 @@ const FloatingButton = ({ content, handleClick, top, left, scale }) => {
       draggable="false"
       style={{
         transform: `scale(${scale})`,
+        top: top,
+        left: left,
       }}
-      className={`select-none top-[${top}px] left-[${left}px] absolute bg-red-500 hover:scale-110 transition-all duration-300 topic-tag`}
+      className={`select-none absolute bg-red-500 hover:scale-110 transition-all duration-300 topic-tag`}
     >
       {content}
     </a>
