@@ -1,10 +1,20 @@
 import React from "react";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, useSession, signOut } from "next-auth/react";
 
 const LoginButton = () => {
   const { data: session } = useSession();
   if (session) {
-    return <div>LogoutButton</div>;
+    return (
+      <a
+        className="button-outline button-outline--fill"
+        onClick={(e) => {
+          e.preventDefault();
+          signOut();
+        }}
+      >
+        Logout
+      </a>
+    );
   } else
     return (
       <a

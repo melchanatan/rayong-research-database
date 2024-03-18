@@ -143,3 +143,7 @@ h4 {
 .button-outline {
   @apply text-lg px-7 py-1 border-[1px] border-black font-semibold rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-black hover:text-white;
 }
+
+.button-outline--fill {
+  @apply bg-black hover:bg-transparent text-white hover:text-black;
+}
