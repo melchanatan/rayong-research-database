@@ -36,15 +36,13 @@ const InfiniteScroll = ({ position }) => {
               )
           );
 
-        const scale = Math.min(distanceFromCenter / 700);
+        const scale = Math.min(distanceFromCenter / 1000, 2);
 
         return (
           <FloatingButton
             key={"topic" + index}
             handleClick={handleClick}
-            content={topic.name}
-            top={topic.position.y}
-            left={topic.position.x}
+            topic={topic}
             scale={scale}
           />
         );
@@ -55,19 +53,21 @@ const InfiniteScroll = ({ position }) => {
 
 export default InfiniteScroll;
 
-const FloatingButton = ({ content, handleClick, top, left, scale }) => {
+const FloatingButton = ({ topic, handleClick, scale }) => {
   return (
     <a
       onClick={handleClick}
       draggable="false"
       style={{
         transform: `scale(${scale})`,
-        top: top,
-        left: left,
+        top: topic.position.y,
+        left: topic.position.x,
+        background: topic.tagColor,
       }}
-      className={`select-none absolute bg-red-500 hover:scale-110 transition-all duration-300 topic-tag `}
+      className={`select-none absolute hover:scale-110 transition-all duration-300 topic-tag z-[1]`}
     >
-      {content}
+      {`${topic.name}`}{" "}
+      <span className="text-sm">{`(${topic.researchCounts})`}</span>
     </a>
   );
 };

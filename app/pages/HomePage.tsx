@@ -42,11 +42,12 @@ const HomePage: React.FC = () => {
         onMouseUp={handleMouseUp}
       >
         <InfiniteScroll position={position}></InfiniteScroll>
-        <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-full h-full">
-          {/* <ParticleComponent className="w-full h-full absolute" /> */}
-        </div>
+
         <div
-          className="translate-y-[-50px] flex flex-col align-middle text-center "
+          onDragStart={function (event) {
+            event.preventDefault();
+          }}
+          className="translate-y-[-50px] flex flex-col align-middle text-center z-10"
           draggable="false"
         >
           <h1 className="select-none">ฐานข้อมูลระยอง</h1>
