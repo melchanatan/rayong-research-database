@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 const BlobBackground: React.FC = () => {
   const blueGradient: string =
@@ -6,7 +7,7 @@ const BlobBackground: React.FC = () => {
   const greenGradient: string =
     "radial-gradient(circle, rgba(121,170,62,1) 0%, rgba(4,251,58,0.36299765807962525) 100%)";
 
-  const blobs: ColorBlob[] = [
+  const [blobs, setBlobs] = useState([
     {
       x: -100,
       y: -200,
@@ -55,7 +56,7 @@ const BlobBackground: React.FC = () => {
       py: "left",
       width: 10,
       height: 20,
-      blur: 140,
+      blur: 170,
     },
     {
       x: 100,
@@ -65,9 +66,27 @@ const BlobBackground: React.FC = () => {
       py: "left",
       width: 10,
       height: 20,
-      blur: 140,
+      blur: 170,
     },
-  ];
+  ]);
+
+  function moveBlob() {
+    //randomly move blob
+    blobs.forEach((blob, index) => {
+      setBlobs((prevBlobs) => {
+        const newBlobs = [...prevBlobs];
+        newBlobs[index].x = Math.floor(Math.random() * 200);
+        newBlobs[index].y = Math.floor(Math.random() * 200);
+        return newBlobs;
+      });
+    });
+  }
+
+  useEffect(() => {
+    var interval = setInterval(moveBlob, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       {blobs.map((blob, index) => {
@@ -88,7 +107,7 @@ const BlobBackground: React.FC = () => {
         return (
           <svg
             key={"blob" + index}
-            className={`rounded-full absolute opacity-50 xl:opacity-100`}
+            className={`rounded-full absolute opacity-50 transition-all duration-[3000ms]`}
             style={customStyle}
           ></svg>
         );
