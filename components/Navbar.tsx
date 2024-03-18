@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React from "react";
+import LoginButton from "./LoginButton";
 const Navbar = () => {
   const router = useRouter();
 
@@ -15,9 +16,7 @@ const Navbar = () => {
       <a href="/">
         <div className="w-6 h-6 bg-white"></div>
       </a>
-      <a className="button-outline" onClick={goToLoginPage}>
-        Login
-      </a>
+      <LoginButton />
     </nav>
   );
 };
