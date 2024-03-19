@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { IoSearch } from "react-icons/io5";
@@ -7,7 +7,11 @@ import BlobBackground from "@/components/BlobBackground";
 import ParticleComponent from "@/components/ParticleComponent";
 import Searchbar from "@/components/Searchbar";
 import InfiniteScroll from "@/components/InfiniteScroll";
-import { TopicContextProvider } from "@/utils/TopicContextProvider";
+import {
+  TopicContext,
+  TopicContextProvider,
+} from "@/utils/TopicContextProvider";
+
 const HomePage: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });

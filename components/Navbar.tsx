@@ -14,20 +14,40 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="absolute top-0 flex w-screen p-3 z-10 justify-between items-center select-none">
-      {/* logo */}
-
-      <a href="/">
-        <div className="w-6 h-6 bg-white"></div>
-      </a>
-      {session ? (
-        <div>Welcome, {session.user!.name}!</div>
-      ) : (
-        <div>You are not logged in.</div>
-      )}
-      <LoginButton />
+    <nav className="absolute top-0 right-0 p-3 z-10 justify-between items-center select-none">
+      {session ? <Menu session={session} /> : <LoginButton />}
     </nav>
   );
 };
 
 export default Navbar;
+
+const Menu = () => {
+  const { data: session } = useSession();
+  if (!session) return <div>Something went wrong</div>;
+  if (!session.usernameExists)
+    return (
+      <div className="gap-2 flex items-center">
+        User unauthorized <LoginButton />
+      </div>
+    );
+
+  return (
+    <div className="glassmorphism bg-white p-3 rounded-lg shadow-lg flex flex-row justify-between gap-2 items-center">
+      <div className="flex flex-row  ">
+        <a href="/publish" className="link-button">
+          Publish
+        </a>
+        <a href="/dashboard" className="link-button">
+          Dashboard
+        </a>
+      </div>
+      {/* <img
+        src={session.user!.image}
+        alt="user profile"
+        className="h-8 w-8 rounded-full"
+      /> */}
+      <LoginButton />
+    </div>
+  );
+};

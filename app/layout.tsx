@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import { SessionProvider, getSession } from "next-auth/react";
 import { Session } from "next-auth";
 import "dotenv/config";
+import { TabContextProvider } from "@/utils/TabContextProvider";
+import { TopicContextProvider } from "@/utils/TopicContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +23,17 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-center bg-white text-black relative min-w-screen overflow-hidden">
-          <SessionProvider session={session}>
-            <Navbar />
-            <BlobBackground />
-            {children}
-          </SessionProvider>
+          <TopicContextProvider>
+            <SessionProvider session={session}>
+              <TabContextProvider>
+                <>
+                  <Navbar />
+                  <BlobBackground />
+                  {children}
+                </>
+              </TabContextProvider>
+            </SessionProvider>
+          </TopicContextProvider>
         </main>
       </body>
     </html>

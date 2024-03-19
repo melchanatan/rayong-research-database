@@ -147,3 +147,11 @@ h4 {
 .button-outline--fill {
   @apply bg-black hover:bg-transparent text-white hover:text-black;
 }
+
+.link-button {
+  @apply hover:bg-black hover:text-white px-2 transition-all duration-300 font-bold;
+}
+
+.tabnav-button {
+  @apply glassmorphism px-6 rounded-r-lg  paragraph rounded-l-lg hover:bg-black hover:text-white transition-all
+}

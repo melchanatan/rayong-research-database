@@ -1,4 +1,6 @@
+"use client";
 import ResearchHeader from "@/components/ResearchHeader";
+import TabNav from "@/components/TabNav";
 import React from "react";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { AiOutlineFileExcel } from "react-icons/ai";
@@ -8,6 +10,7 @@ import { AiOutlineFile } from "react-icons/ai";
 const ResearchPage = () => {
   return (
     <div>
+      <TabNav />
       <div className="flex gap-6 main-container justify-center">
         <div className="flex flex-col gap-3  max-w-[65%]">
           <div className="flex flex-col gap-3 overflow-y-auto pl-3 box-container h-[60vh]">

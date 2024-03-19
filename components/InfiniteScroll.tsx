@@ -8,12 +8,6 @@ const InfiniteScroll = ({ position }) => {
     window.innerWidth ** 2 + window.innerHeight ** 2
   );
   const dragCoefficent = 0.9;
-  const router = useRouter();
-
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    router.push("/topic");
-  };
   return (
     <div
       className="w-screen h-screen absolute trasition-all duration-300"
@@ -39,12 +33,7 @@ const InfiniteScroll = ({ position }) => {
         const scale = Math.min(distanceFromCenter / 1000, 2);
 
         return (
-          <FloatingButton
-            key={"topic" + index}
-            handleClick={handleClick}
-            topic={topic}
-            scale={scale}
-          />
+          <FloatingButton key={"topic" + index} topic={topic} scale={scale} />
         );
       })}
     </div>
@@ -53,7 +42,15 @@ const InfiniteScroll = ({ position }) => {
 
 export default InfiniteScroll;
 
-const FloatingButton = ({ topic, handleClick, scale }) => {
+const FloatingButton = ({ topic, scale }) => {
+  const router = useRouter();
+
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    router.push("/topic/" + topic.name);
+  };
+
   return (
     <a
       onClick={handleClick}
