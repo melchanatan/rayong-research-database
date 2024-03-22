@@ -92,6 +92,7 @@ const TopicContext = createContext(defaultTopics as Topic[]);
 const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
   const topics = useRef([]);
   const [filteredTopics, setFilteredTopics] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchTopics = async () => {
     try {
@@ -100,6 +101,7 @@ const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
       setTopicPosition(data);
       topics.current = data;
       setFilteredTopics(data);
+      setIsLoading(true);
     } catch (err) {
       console.log(err);
     }
@@ -111,7 +113,7 @@ const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <TopicContext.Provider
-      value={{ topics, filteredTopics, setFilteredTopics }}
+      value={{ topics, filteredTopics, setFilteredTopics, isLoading }}
     >
       {children}
     </TopicContext.Provider>

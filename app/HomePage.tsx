@@ -16,6 +16,7 @@ const HomePage: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+  const { isLoading } = useContext(TopicContext);
 
   const handleMouseDown = (event) => {
     setIsDragging(true);
@@ -39,28 +40,32 @@ const HomePage: React.FC = () => {
 
   return (
     <TopicContextProvider>
-      <div
-        className="w-screen h-screen flex flex-col justify-center items-center absolute "
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-      >
-        <InfiniteScroll position={position}></InfiniteScroll>
-
+      {!isLoading ? (
         <div
-          onDragStart={function (event) {
-            event.preventDefault();
-          }}
-          className="translate-y-[-50px] flex flex-col align-middle text-center z-10"
-          draggable="false"
+          className="w-screen h-screen flex flex-col justify-center items-center absolute "
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
         >
-          <h1 className="select-none">ฐานข้อมูลระยอง</h1>
-          <p className="mb-5 paragraph select-none">
-            แหล่งรวบรวมข้อมูลจังหวัดระยอง
-          </p>
-          <Searchbar></Searchbar>
+          <InfiniteScroll position={position}></InfiniteScroll>
+
+          <div
+            onDragStart={function (event) {
+              event.preventDefault();
+            }}
+            className="translate-y-[-50px] flex flex-col align-middle text-center z-10"
+            draggable="false"
+          >
+            <h1 className="select-none">ฐานข้อมูลระยอง</h1>
+            <p className="mb-5 paragraph select-none">
+              แหล่งรวบรวมข้อมูลจังหวัดระยอง
+            </p>
+            <Searchbar></Searchbar>
+          </div>
         </div>
-      </div>
+      ) : (
+        <h1 className="animate-pulse">Loading...</h1>
+      )}
     </TopicContextProvider>
   );
 };

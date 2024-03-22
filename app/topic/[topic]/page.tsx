@@ -1,14 +1,18 @@
 "use client";
+import ParagraphSkeleton from "@/components/ParagraphSkeleton";
 import ResearchHeader from "@/components/ResearchHeader";
 import TabNav from "@/components/TabNav";
 import { TabContext } from "@/utils/TabContextProvider";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
   const [researchDetails, setResearchDetails] = useState([]);
   const [researchIds, setResearchIds] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(true);
   const fetchAllResearch = async (researchIds) => {
     const researches = [];
     for (const id of researchIds) {
@@ -28,12 +32,18 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
     });
   };
 
-  const initResearchDetail = async () => {
-    const ids = await fetchResearchId();
-    setResearchIds(ids);
-    const researches = await fetchAllResearch(ids);
-    setResearchDetails(researches);
-    return researchIds;
+  const initResearchDetail = async (): Promise<string[]> => {
+    try {
+      const ids = await fetchResearchId();
+      setResearchIds(ids);
+      const researches = await fetchAllResearch(ids);
+      setResearchDetails(researches);
+      return researchIds;
+    } catch (err) {
+      console.log(err);
+      setIsError(true);
+      return [];
+    }
   };
 
   const fetchResearchId = async () => {
@@ -57,34 +67,35 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
           dir="rtl"
           className="w-[55%] flex flex-col gap-3 overflow-y-auto h-[80vh] pl-3"
         >
-          {researchDetails.map((research: any, index: number) => {
-            console.log(researchIds[index]);
-            return (
-              <ResearchListView
-                key={"research" + index}
-                research={research}
-                tagName={params.topic}
-                id={researchIds[index]}
-              />
-            );
-          })}
+          {isError ? (
+            <div className="w-full h-[80vh] flex justify-center items-center">
+              <h2 className="text-gray-400">เกิดข้อผิดพลาด</h2>
+            </div>
+          ) : isLoading ? (
+            Array(4)
+              .fill(0)
+              .map((_, index) => <LoadingSkeleton key={index} />)
+          ) : (
+            researchDetails.map((research: any, index: number) => {
+              return (
+                <ResearchListView
+                  key={"research" + index}
+                  research={research}
+                  tagName={params.topic}
+                  id={researchIds[index]}
+                />
+              );
+            })
+          )}
         </ul>
 
         <div className="flex-1 glassmorphism py-8 rounded-lg px-6 ">
-          <h3>บทคัดย่อ</h3>
-          <p className="paragraph">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Consequatur quo iusto, rerum sit eligendi minima repudiandae
-            molestias rem natus illo, quisquam recusandae libero optio saepe.
-            Qui saepe aperiam possimus officia. Iure inventore velit, facilis et
-            sed qui similique tenetur? Quam alias veritatis magnam, ducimus
-            earum, neque nobis unde mollitia nesciunt maxime facere cupiditate
-            ratione. Voluptates et provident eum ea itaque? Ab doloremque atque
-            optio exercitationem tempora, adipisci aperiam nulla maiores quia
-            ex. Earum tenetur consequatur maxime exercitationem labore
-            temporibus eius eum, modi, libero dolore inventore molestiae quidem
-            adipisci. Eos, labore.
-          </p>
+          <h3 className="mb-6">บทคัดย่อ</h3>
+          {isLoading ? (
+            <ParagraphSkeleton lines={10} />
+          ) : (
+            <p className="paragraph"></p>
+          )}
         </div>
       </li>
     </ul>
@@ -117,5 +128,17 @@ const ResearchListView = ({ research, tagName, id }) => {
       <ResearchHeader title={research.DocName} tagName={tagName} />
       <p className="text-gray-600">กรมอุทยานแห่งชาติ สัตว์ป่า และพันธุ์พืช</p>
     </a>
+  );
+};
+
+const LoadingSkeleton = () => {
+  return (
+    <div dir="ltr" className="box-container flex flex-col gap-6">
+      <div className="flex flex-col gap-1 ">
+        <h1 className="loading w-full h-[36px]"></h1>
+        <p className="loading w-[30%] h-[18px]"></p>
+      </div>
+      <p className="loading w-[80%] h-[18px]"></p>
+    </div>
   );
 };
