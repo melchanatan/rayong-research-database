@@ -13,9 +13,9 @@ const ResearchPage = () => {
   return (
     <div>
       <TabNav />
-      <div className="flex gap-6 main-container justify-center">
+      <div className="flex gap-6 main-container justify-center md:flex-row flex-col my-5 md:my-0">
         <div className="flex flex-col gap-3 w-full">
-          <div className="flex flex-col gap-3 overflow-y-auto pl-3 box-container h-[60vh]">
+          <div className="flex flex-col gap-3 overflow-y-auto pl-3 box-container md:h-[60vh] h-auto">
             {isLoading ? (
               <div className="mb-4">
                 <div className="loading w-full h-[36px] mb-2"></div>
@@ -56,7 +56,7 @@ const ResearchPage = () => {
             </div>
           </div>
         </div>
-        <div className="box-container flex flex-col gap-7 [&>li>h3]:mb-2 w-[35%]">
+        <div className="box-container flex flex-col gap-7 [&>li>h3]:mb-2 md:w-[35%] w-full">
           <div>
             <h3>องกรณ์</h3>
             {isLoading ? (
