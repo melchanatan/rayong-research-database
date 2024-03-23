@@ -60,7 +60,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
   }, []);
 
   return (
-    <ul className="main-container ">
+    <ul className="main-container py-[7vh]">
       <TabNav />
 
       <li className="flex gap-6  flex-col md:flex-row my-6 md:my-0">

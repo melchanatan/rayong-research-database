@@ -10,9 +10,11 @@ import {
   publishFormReducer,
 } from "@/utils/PublishFormContext";
 import InputForm from "@/components/InputForm";
+import { useSession } from "next-auth/react";
 
 const PublishPage = () => {
   const router = useRouter();
+
   const [submitting, setSubmitting] = useState(false);
   const [post, setPost] = useState({
     name: "",
@@ -51,6 +53,11 @@ const PublishPage = () => {
   };
 
   const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
+  const { data: session } = useSession();
+  if (!session) return <h1>Something went wrong</h1>;
+  if (!session.usernameExists)
+    return <div className="gap-2 flex items-center">User unauthorized</div>;
+
   return (
     <PublishFormContext.Provider value={{ state, dispatch }}>
       <section className="max-w-[1200px] w-full px-10 mt-10">

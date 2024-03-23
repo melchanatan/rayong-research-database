@@ -35,10 +35,10 @@ const Menu = () => {
   return (
     <div className="glassmorphism bg-white p-3 rounded-lg shadow-lg flex flex-row justify-between gap-2 items-center">
       <div className="flex flex-row  ">
-        <a href="/publish" className="link-button">
+        <a href="/admin/publish" className="link-button">
           Publish
         </a>
-        <a href="/dashboard" className="link-button">
+        <a href="/admin/dashboard" className="link-button">
           Dashboard
         </a>
       </div>

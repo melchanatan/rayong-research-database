@@ -11,7 +11,7 @@ import { AiOutlineFile } from "react-icons/ai";
 const ResearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   return (
-    <div>
+    <div className="py-[7vh]">
       <TabNav />
       <div className="flex gap-6 main-container justify-center md:flex-row flex-col my-5 md:my-0">
         <div className="flex flex-col gap-3 w-full">
