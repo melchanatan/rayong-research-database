@@ -2,7 +2,13 @@
 import Dropzone from "@/components/Dropzone";
 import TableInputForm from "@/components/TableInputForm";
 import { useRouter } from "next/navigation";
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, {
+  createContext,
+  use,
+  useContext,
+  useReducer,
+  useState,
+} from "react";
 import { IoIosAdd } from "react-icons/io";
 import {
   PublishFormContext,
@@ -17,6 +23,7 @@ const PublishPage = () => {
   const router = useRouter();
   const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   const [submitting, setSubmitting] = useState(false);
+  const [files, setFiles] = useState([]);
 
   const createItem = async (e) => {
     e.preventDefault();
@@ -110,7 +117,7 @@ const PublishPage = () => {
             <span className=" font-semibold text-base text-gray-700">
               ไฟล์ประกอบการวิจัยของคุณ
             </span>
-            {/* <Dropzone post={post} setPost={setPost} /> */}
+            <Dropzone files={files} setFiles={setFiles} />
           </label>
           <div className="flex items-center mx-3 mb-5 gap-10">
             <a href="/admin/" className="text-gray-500 text-md">

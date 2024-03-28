@@ -3,17 +3,19 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { IoClose } from "react-icons/io5";
+import DynamicFileIcon from "./DynamicFileIcon";
+
 // import { getSignature, saveToDatabase } from '@app/_actions'
 
-const Dropzone = ({ post, setPost, className }) => {
-  const [files, setFiles] = useState([]);
+const Dropzone = ({ files, setFiles, className }) => {
   const [rejected, setRejected] = useState([]);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (acceptedFiles?.length) {
       setFiles((previousFiles) => [
         // If allowing multiple files
-        // ...previousFiles,
+        ...previousFiles,
         ...acceptedFiles.map((file) =>
           Object.assign(file, { preview: URL.createObjectURL(file) })
         ),
@@ -27,10 +29,17 @@ const Dropzone = ({ post, setPost, className }) => {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
-      "image/*": [],
+      "text/csv": [".csv"],
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [
+        ".xlsx",
+      ],
+      "application/pdf": [".pdf"],
+      "application/msword": [".doc", ".docx"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
     },
     maxSize: 1024 * 1000,
-    maxFiles: 1,
+    maxFiles: 3,
     onDrop,
   });
 
@@ -54,10 +63,16 @@ const Dropzone = ({ post, setPost, className }) => {
   const submit = () => {};
 
   return (
-    <div>
+    <div
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+    >
       <div
         {...getRootProps({
-          className: className,
+          refKey: "innerRef",
+          noClick: true,
+          noKeyboard: true,
         })}
       >
         <input {...getInputProps({ name: "file" })} />
@@ -65,7 +80,6 @@ const Dropzone = ({ post, setPost, className }) => {
           className="flex flex-col items-center justify-center gap-4 py-10 bg-slate-100/40 rounded-xl border-gray-500 border-[1px] mt-2 text-gray-400"
           style={{ borderStyle: isDragActive ? "dashed" : "solid" }}
         >
-          {/* <ArrowUpTrayIcon className="h-5 w-5 fill-current" /> */}
           {isDragActive ? (
             <p>วางตรงนี้เลย ...</p>
           ) : (
@@ -94,35 +108,35 @@ const Dropzone = ({ post, setPost, className }) => {
         </div>
 
         {/* Accepted files */}
-        <h3 className="title mt-10 border-b pb-3 text-lg font-semibold text-stone-600">
-          ไฟล์ของคุณ
-        </h3>
-        <ul className="mt-6 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-          {files.map((file) => (
-            <li key={file.name} className="relative h-32 rounded-md shadow-lg">
-              <Image
-                src={file.preview}
-                alt={file.name}
-                width={100}
-                height={100}
-                onLoad={() => {
-                  URL.revokeObjectURL(file.preview);
-                }}
-                className="h-full w-full rounded-md object-contain"
-              />
-              <button
-                type="button"
-                className="absolute -right-3 -top-3 flex h-7 w-7 items-center justify-center rounded-full border border-rose-400 bg-rose-400 transition-colors hover:bg-white"
-                onClick={() => removeFile(file.name)}
-              >
-                {/* <XMarkIcon className="h-5 w-5 fill-white transition-colors hover:fill-rose-400" /> */}
-              </button>
-              <p className="mt-2 text-[12px] font-medium text-stone-500">
-                {file.name}
-              </p>
-            </li>
-          ))}
-        </ul>
+        {files.length > 0 && (
+          <>
+            <h3 className="title mt-10 border-b pb-3 text-lg font-semibold text-stone-600">
+              ไฟล์ของคุณ
+            </h3>
+            <ul className="mt-6 flex flex-row gap-4">
+              {files.map((file) => (
+                <li
+                  key={file.name}
+                  className="relative rounded-md shadow-lg flex justify-center flex-col items-center p-5"
+                >
+                  <DynamicFileIcon
+                    fileExtension={file.name?.split(".")[-1] || "none"}
+                  />
+                  <button
+                    type="button"
+                    className="absolute -right-3 -top-3 flex h-7 w-7 items-center justify-center rounded-full border border-rose-400 bg-rose-400 transition-colors hover:bg-white"
+                    onClick={() => removeFile(file.name)}
+                  >
+                    <IoClose className="fill-white h-5 w-5 hover:fill-rose-400" />
+                  </button>
+                  <p className="mt-2 text-[12px] font-medium text-stone-500">
+                    {file.name}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
 
         {/* Rejected Files */}
         <ul className="mt-6 flex flex-col">
