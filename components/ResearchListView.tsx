@@ -7,15 +7,22 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
 import { ConfirmToast } from "react-confirm-toast";
 
-const ResearchListView = ({ research, tagName, id, admin = false }) => {
+const ResearchListView = ({
+  research,
+  tagName,
+  id,
+  admin = false,
+  setPreview,
+  tagColor,
+}) => {
   const router = useRouter();
   const { setTabs } = useContext(TabContext);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const newTab: Tab = {
-      name: "topic 1",
-      href: "topic",
+      name: tagName,
+      href: "/topic/" + tagName,
     };
 
     setTabs((prev) => [...prev, newTab]);
@@ -31,9 +38,14 @@ const ResearchListView = ({ research, tagName, id, admin = false }) => {
       dir="ltr"
       className="box-container flex flex-col gap-3 hover:shadow-lg cursor-pointer"
       onClick={admin ? () => {} : handleClick}
+      onMouseEnter={() => setPreview(research.abstract)}
     >
-      <ResearchHeader title={research.DocName} tagName={tagName} />
-      <p className="text-gray-600">กรมอุทยานแห่งชาติ สัตว์ป่า และพันธุ์พืช</p>
+      <ResearchHeader
+        title={research.header}
+        tagName={tagName}
+        tagColor={tagColor}
+      />
+      <p className="text-gray-600">{research.organization}</p>
 
       {admin ? (
         <ConfirmToast

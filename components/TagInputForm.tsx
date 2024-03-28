@@ -13,6 +13,8 @@ const TagInputForm = ({ state, dispatch }) => {
 
   const handleOnChange = (e) => {
     setTag(e.target.value);
+    dispatch({ type: "SET_TAG", payload: e.target.value });
+
     const current_topics = topics.current;
     const searchTerm = e.target.value.toLowerCase();
     const filteredTopics = current_topics.filter((topic) => {

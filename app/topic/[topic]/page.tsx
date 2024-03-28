@@ -10,50 +10,47 @@ import { IoIosArrowBack } from "react-icons/io";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
-  const [researchDetails, setResearchDetails] = useState([]);
-  const [researchIds, setResearchIds] = useState([]);
+  const [researches, setResearches] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const fetchAllResearch = async (researchIds) => {
-    const researches = [];
-    for (const id of researchIds) {
-      researches.push(fetchResearch(id));
-    }
+  const [preview, setPreview] = useState("");
+  const [tagColor, setTagColor] = useState("#ffffff");
 
-    const result = await Promise.all(researches);
-    return result;
+  const fetchResearch = async () => {
+    const researchSnippets = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/getDocsSnippet/" + params.topic
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      });
+    return researchSnippets;
   };
 
-  const fetchResearch = (researchId) => {
-    return new Promise((resolve, reject) => {
-      fetch(process.env.NEXT_PUBLIC_API_URL + "/getDocData/" + researchId)
-        .then((res) => res.json())
-        .then((data) => resolve(data))
-        .catch((err) => reject(err));
-    });
+  const fetchTagColor = async () => {
+    const color = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/getTopicColor/" + params.topic
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      });
+    return color.tagColor;
   };
 
   const initResearchDetail = async (): Promise<string[]> => {
     try {
-      const ids = await fetchResearchId();
-      setResearchIds(ids);
-      const researches = await fetchAllResearch(ids);
-      setResearchDetails(researches);
+      const researchSnippets = await fetchResearch();
+      const color = await fetchTagColor();
+      setTagColor(color);
+      setResearches(researchSnippets);
       setIsLoading(false);
-      return researchIds;
+      return researches;
     } catch (err) {
       console.log(err);
       setIsError(true);
       return [];
     }
-  };
-
-  const fetchResearchId = async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + "/getDocID/" + params.topic
-    );
-    const data = await res.json();
-    return data.docIDs || [];
   };
 
   useEffect(() => {
@@ -78,13 +75,15 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
               .fill(0)
               .map((_, index) => <ResearchListView.loading key={index} />)
           ) : (
-            researchDetails.map((research: any, index: number) => {
+            researches.map((research: any, index: number) => {
               return (
                 <ResearchListView
                   key={"research" + index}
                   research={research}
                   tagName={params.topic}
-                  id={researchIds[index]}
+                  id={researches[index].id}
+                  setPreview={setPreview}
+                  tagColor={tagColor}
                 />
               );
             })
@@ -95,8 +94,12 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
           <h3 className="mb-6">บทคัดย่อ</h3>
           {isLoading ? (
             <ParagraphSkeleton lines={10} />
+          ) : preview == "" ? (
+            <p className="paragraph text-gray-400 select-none">
+              เริ่มจากการนำเมาส์ไปวางบนหัวข้อที่สนใจ
+            </p>
           ) : (
-            <p className="paragraph">this is a paragraph</p>
+            <p className="paragraph">{preview}</p>
           )}
         </div>
       </li>

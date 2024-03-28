@@ -4,29 +4,27 @@ import ParagraphSkeleton from "@/components/ParagraphSkeleton";
 import ResearchHeader from "@/components/ResearchHeader";
 import TabNav from "@/components/TabNav";
 import React, { useState } from "react";
+import { FaLessThanEqual } from "react-icons/fa6";
 
 const ResearchPage = ({ params }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState([{}]);
 
   const initResearchDetails = async () => {
-    try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/getDocData/" + params.research
-      );
+    // try {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/getDocData/${params.research}`
+    );
+    const json = await data.json();
+    console.log(json);
+    setContent(json);
 
-      const data = await res.json();
-      setContent(data || [{}]);
-
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
+    setIsLoading(false);
   };
 
   useState(() => {
     initResearchDetails();
-  }, []);
+  });
 
   return (
     <div className="py-[7vh]">
@@ -41,7 +39,7 @@ const ResearchPage = ({ params }) => {
               </div>
             ) : (
               <ResearchHeader
-                title={content.DocName}
+                title={content.header}
                 tagName={""}
               ></ResearchHeader>
             )}
@@ -49,7 +47,7 @@ const ResearchPage = ({ params }) => {
             {isLoading ? (
               <ParagraphSkeleton className="w-full " />
             ) : (
-              <p className="paragraph">{content.Content}</p>
+              <p className="paragraph">{content.abstract}</p>
             )}
           </div>
           <div className="box-container ">
@@ -57,10 +55,15 @@ const ResearchPage = ({ params }) => {
             <div className="gap-2 flex flex-col">
               {isLoading ? (
                 <FileSkeleton />
-              ) : content.Files ? (
+              ) : content.files ? (
                 [
-                  content.Files?.map((file) => (
-                    <FileDownload content={file} key={file.id} />
+                  content.files?.map((file, index) => (
+                    <FileDownload
+                      fileName={file}
+                      index={index}
+                      docId={params.research}
+                      key={file + "files"}
+                    />
                   )),
                 ]
               ) : (
@@ -75,8 +78,8 @@ const ResearchPage = ({ params }) => {
 
             {isLoading ? (
               <ParagraphSkeleton className="w-full mt-1" lines={2} />
-            ) : content.Organization ? (
-              <p>{content.Organization}</p>
+            ) : content.organization ? (
+              <p>{content.organization}</p>
             ) : (
               <p className="text-gray-400">ไม่ปรากฏข้อมูลองค์กร</p>
             )}
@@ -88,9 +91,9 @@ const ResearchPage = ({ params }) => {
               <ResearcherSkeleton />
             ) : (
               <div className="flex flex-col">
-                {content.Researchers ? (
+                {content.researchers ? (
                   [
-                    content.Researchers?.map((researcher) => (
+                    content.researchers?.map((researcher) => (
                       <ResearcherDetail
                         name={researcher.name}
                         orgainzation={researcher.organization}
@@ -108,8 +111,8 @@ const ResearchPage = ({ params }) => {
             <h3>ติดต่อ</h3>
             {isLoading ? (
               <div className="loading h-[18px] w-[80%] mt-1"></div>
-            ) : content.Contact ? (
-              <p>{content.Contact}</p>
+            ) : content.contactEmail ? (
+              <p>{content.contactEmail}</p>
             ) : (
               <p className="text-gray-400">ไม่ปรากฏข้อมูลติดต่อ</p>
             )}
@@ -131,16 +134,78 @@ const ResearcherDetail = ({ name, orgainzation }) => {
   );
 };
 
-const FileDownload = ({ content }) => {
+const FileDownload = ({ fileName, index, docId }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleOnClick = async () => {
+    // const res = fetch(
+    //   process.env.NEXT_PUBLIC_API_URL + `/downloadDoc/${docId}/${index}`
+    // );
+    setIsLoading(true);
+
+    await fetch(
+      process.env.NEXT_PUBLIC_API_URL + `/downloadDoc/${docId}/${index}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          // You can add any additional headers if required
+        },
+      }
+    )
+      .then((response) => {
+        // Check if response is successful
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        // Get the content disposition header to determine the filename
+        const contentDisposition = response.headers.get("Content-Disposition");
+        let filename = fileName;
+        if (contentDisposition) {
+          const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          const matches = filenameRegex.exec(contentDisposition);
+          if (matches != null && matches[1]) {
+            filename = matches[1].replace(/['"]/g, "");
+          }
+        }
+        // Start downloading the file
+        response.blob().then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        });
+      })
+      .catch((error) => {
+        console.error("Error downloading file:", error);
+        // Handle any errors that occurred during the fetch
+      });
+
+    setIsLoading(false);
+  };
+
   return (
-    <a>
-      <div className="border-black border-[1px] px-6 py-2 rounded-lg flex flex-row items-center hover:bg-black transition-all duration-200 ease-in-out hover:text-white group">
-        <DynamicFileIcon
-          fileExtension={content.Link?.split(".")[1] || "none"}
-        />
-        {content.Link}
+    <button onClick={handleOnClick} disabled={isLoading}>
+      <div
+        className="border-black border-[1px] px-6 py-2 rounded-lg flex flex-row  items-center hover:bg-black transition-all duration-200 ease-in-out hover:text-white group cursor-pointer bg-repeat animation-moveBackground"
+        style={{
+          backgroundImage: !isLoading
+            ? "none"
+            : "linear-gradient(90deg, #2BAAD9 0%, #83BB3F 100%)",
+        }}
+      >
+        {isLoading ? (
+          <p className="text-lg text-white">Downloading...</p>
+        ) : (
+          <>
+            <DynamicFileIcon fileExtension={fileName.split(".")[1] || "none"} />
+            <p className="w-full text-center">{fileName}</p>
+          </>
+        )}
       </div>
-    </a>
+    </button>
   );
 };
 

@@ -32,6 +32,8 @@ const PublishPage = () => {
     const csvContent =
       "Name,Age,Email\nJohn Doe,30,john@example.com\nJane Smith,25,jane@example.com";
     const formData = new FormData();
+
+    // append metadata to formdata
     formData.append(
       "metadata",
       new Blob([JSON.stringify(state)], {
@@ -39,13 +41,12 @@ const PublishPage = () => {
       }),
       "metadata"
     );
-    formData.append(
-      "csvFile",
-      new Blob([csvContent], { type: "text/csv" }),
-      "data.csv"
-    );
 
-    console.log(formData);
+    // append files to formdata
+    files.forEach((file) => {
+      formData.append("files", new Blob([file]), file.name);
+    });
+
     try {
       const response = await fetch(
         process.env.NEXT_PUBLIC_API_URL + "/postDoc",
