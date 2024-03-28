@@ -39,6 +39,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
       setResearchIds(ids);
       const researches = await fetchAllResearch(ids);
       setResearchDetails(researches);
+      setIsLoading(false);
       return researchIds;
     } catch (err) {
       console.log(err);

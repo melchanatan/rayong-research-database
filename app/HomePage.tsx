@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <TopicContextProvider>
+    <>
       {!isLoading ? (
         <div
           className="w-screen h-screen flex flex-col justify-center items-center absolute "
@@ -66,7 +66,7 @@ const HomePage: React.FC = () => {
       ) : (
         <h1 className="animate-pulse">Loading...</h1>
       )}
-    </TopicContextProvider>
+    </>
   );
 };
 

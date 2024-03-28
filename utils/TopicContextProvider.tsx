@@ -101,7 +101,7 @@ const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
       setTopicPosition(data);
       topics.current = data;
       setFilteredTopics(data);
-      setIsLoading(true);
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
     }

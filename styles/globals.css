@@ -159,3 +159,7 @@ h4 {
 .loading {
   @apply animate-pulse rounded-lg  bg-gray-400
 }
+
+.file-icon {
+  @apply w-[2.4rem] h-[2.4rem] fill-gray-700 group-hover:fill-white
+}

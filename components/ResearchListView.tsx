@@ -30,7 +30,6 @@ const ResearchListView = ({ research, tagName, id, admin = false }) => {
     <a
       dir="ltr"
       className="box-container flex flex-col gap-3 hover:shadow-lg cursor-pointer"
-      // href="/research/topic"
       onClick={admin ? () => {} : handleClick}
     >
       <ResearchHeader title={research.DocName} tagName={tagName} />

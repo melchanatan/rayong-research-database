@@ -11,48 +11,56 @@ import {
 } from "@/utils/PublishFormContext";
 import InputForm from "@/components/InputForm";
 import { useSession } from "next-auth/react";
+import TagInputForm from "@/components/TagInputForm";
 
 const PublishPage = () => {
   const router = useRouter();
-
+  const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState({
-    name: "",
-    description: "",
-    tag: "",
-    image: "",
-    stockMax: 0,
-    stockCurrent: 0,
-  });
 
   const createItem = async (e) => {
     e.preventDefault();
     setSubmitting(true);
 
-    // try {
-    //   const response = await fetch("/api/item/new", {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       name: post.name,
-    //       // userId: session?.user.id,
-    //       description: post.description,
-    //       tag: post.tag,
-    //       // image: post.imageUrl,
-    //       stockMax: post.stockMax,
-    //       stockCurrent: post.stockMax,
-    //     }),
-    //   });
-    //   if (response.ok) {
-    //     router.push("/admin");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   setSubmitting(false);
-    // }
+    const csvContent =
+      "Name,Age,Email\nJohn Doe,30,john@example.com\nJane Smith,25,jane@example.com";
+    const formData = new FormData();
+    formData.append(
+      "metadata",
+      new Blob([JSON.stringify(state)], {
+        type: "application/json",
+      }),
+      "metadata"
+    );
+    formData.append(
+      "csvFile",
+      new Blob([csvContent], { type: "text/csv" }),
+      "data.csv"
+    );
+
+    console.log(formData);
+    try {
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_API_URL + "/postDoc",
+        {
+          method: "POST",
+
+          body: formData,
+        }
+      );
+
+      console.log(response);
+
+      // if (response.ok) {
+      //   router.push("/admin");
+      // }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   const { data: session } = useSession();
   if (!session) return <h1>Something went wrong</h1>;
   if (!session.usernameExists)
@@ -66,14 +74,14 @@ const PublishPage = () => {
         </h1>
         <form className="mt-3 w-full max-w-screen-2xl flex flex-col gap-7 box-container">
           <InputForm
-            label="หัวข้องานวิจัย"
+            label="หัวข้องานวิจัย (จำเป็น)"
             onChange={(e) =>
               dispatch({ type: "SET_HEADER", payload: e.target.value })
             }
             value={state.header}
           />
           <InputForm
-            label="บทคัดย่องานวิจัย"
+            label="บทคัดย่องานวิจัย (จำเป็น)"
             onChange={(e) =>
               dispatch({ type: "SET_ABSTRACT", payload: e.target.value })
             }
@@ -81,19 +89,7 @@ const PublishPage = () => {
             value={state.abstract}
           />
 
-          <label>
-            <span className=" font-semibold text-base text-gray-600">
-              หมวดหมู่งานวิจัย{" "}
-              <span className="font-normal">(#ป่าไม้​ #การคมนาคม)</span>
-            </span>
-            <input
-              value={post.tag}
-              onChange={(e) => setPost({ ...post, tag: e.target.value })}
-              placeholder="#tag"
-              required
-              className="form-input"
-            />
-          </label>
+          <TagInputForm state={state} dispatch={dispatch} />
           <InputForm
             label="องกรณ์"
             onChange={(e) =>
@@ -114,7 +110,7 @@ const PublishPage = () => {
             <span className=" font-semibold text-base text-gray-700">
               ไฟล์ประกอบการวิจัยของคุณ
             </span>
-            <Dropzone post={post} setPost={setPost} />
+            {/* <Dropzone post={post} setPost={setPost} /> */}
           </label>
           <div className="flex items-center mx-3 mb-5 gap-10">
             <a href="/admin/" className="text-gray-500 text-md">
@@ -122,7 +118,7 @@ const PublishPage = () => {
             </a>
             <button
               type="submit"
-              onClick={() => alert(state.header)}
+              onClick={(e) => createItem(e)}
               disabled={submitting}
               className="text-white px-5 py-1.5 text-md rounded-full bg-primary-green"
             >

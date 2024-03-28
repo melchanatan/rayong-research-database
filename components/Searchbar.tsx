@@ -9,8 +9,10 @@ const Searchbar = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    console.log(topics);
+    const current_topics = topics.current;
     const searchTerm = e.target.value.toLowerCase();
-    const filteredTopics = topics.filter((topic) => {
+    const filteredTopics = current_topics.filter((topic) => {
       return topic.name.toLowerCase().includes(searchTerm);
     });
     setFilteredTopics(filteredTopics);

@@ -61,7 +61,7 @@ const FloatingButton = ({ topic, scale }) => {
         left: topic.position.x,
         background: topic.tagColor,
       }}
-      className={`select-none absolute hover:scale-110 transition-all duration-300 topic-tag z-[1]`}
+      className={`select-none absolute hover:scale-110 transition-all duration-300 topic-tag z-[1] text-nowrap`}
     >
       {`${topic.name}`}{" "}
       <span className="text-sm">{`(${topic.researchCounts})`}</span>

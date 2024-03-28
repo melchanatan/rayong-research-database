@@ -7,6 +7,8 @@ function publishFormReducer(state: PublishFormState, action: Action) {
   switch (action.type) {
     case "SET_HEADER":
       return { ...state, header: action.payload };
+    case "SET_TAG":
+      return { ...state, tag: action.payload };
     case "SET_ABSTRACT":
       return { ...state, abstract: action.payload };
     case "SET_ORGANIZATION":
