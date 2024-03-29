@@ -12,13 +12,13 @@ import { TopicContextProvider } from "@/utils/TopicContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
+const RootLayout = ({
   children,
   session,
 }: Readonly<{
   children: React.ReactNode;
   session: Session | undefined;
-}>) {
+}>) => {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -38,4 +38,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
