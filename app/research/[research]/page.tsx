@@ -17,7 +17,6 @@ const ResearchPage = ({ params }) => {
       `${process.env.NEXT_PUBLIC_API_URL}/getDocData/${params.research}`
     );
     const json = await data.json();
-    console.log(json);
     setContent(json);
 
     setIsLoading(false);
