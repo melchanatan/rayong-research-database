@@ -47,8 +47,8 @@ const HomePage: React.FC = () => {
     const { x, y } = e;
     const oldX = position.x;
     const oldY = position.y;
-    const newX = oldX + x * 2;
-    const newY = oldY - y * 2;
+    const newX = oldX + x * 2.7;
+    const newY = oldY - y * 2.7;
     setPosition({ x: newX, y: newY });
     console.log(x, y);
   };

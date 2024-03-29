@@ -23,8 +23,8 @@ const RootLayout = ({ children, session }) => {
               <TabContextProvider>
                 <>
                   <Navbar />
-                  <BlobBackground />
                   {children}
+                  <BlobBackground />
                 </>
               </TabContextProvider>
             </SessionProvider>
