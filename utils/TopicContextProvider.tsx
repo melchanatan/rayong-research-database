@@ -41,13 +41,12 @@ const defaultTopics: Topic[] = [
   },
 ];
 
-const windowWidth = window.innerWidth;
-const windowHeight = window.innerHeight;
 const maxResearchCounts = 20;
 
 const setTopicPosition = (topics) => {
   const positions: Position[] = [];
-
+  const windowWidth = window!.innerWidth;
+  const windowHeight = window!.innerHeight;
   topics.forEach((topic) => {
     const position: Position = {
       x:
@@ -93,6 +92,7 @@ const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
   const topics = useRef([]);
   const [filteredTopics, setFilteredTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const fetchTopics = async () => {
     try {
@@ -103,6 +103,8 @@ const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
       setFilteredTopics(data);
       setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
+      setIsError(true);
       console.log(err);
     }
   };
@@ -113,7 +115,7 @@ const TopicContextProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <TopicContext.Provider
-      value={{ topics, filteredTopics, setFilteredTopics, isLoading }}
+      value={{ topics, filteredTopics, setFilteredTopics, isLoading, isError }}
     >
       {children}
     </TopicContext.Provider>
