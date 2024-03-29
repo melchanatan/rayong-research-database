@@ -6,7 +6,7 @@ import ResearchHeader from "./ResearchHeader";
 import { AiOutlineDelete } from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
 import { ConfirmToast } from "react-confirm-toast";
-import formatDateToThai from "../utils/formatDateToThai";
+import formatDateToThai from "../utils/FormatDateToThai";
 const ResearchListView = ({
   research,
   tagName,
