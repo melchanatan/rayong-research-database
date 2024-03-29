@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 const InfiniteScroll = ({ position }) => {
   const { filteredTopics } = useContext(TopicContext);
   const maxDistanceFromCenter = Math.sqrt(
-    window.innerWidth ** 2 + window.innerHeight ** 2
+    window?.innerWidth ** 2 + window?.innerHeight ** 2
   );
   const dragCoefficent = 0.9;
   return (
