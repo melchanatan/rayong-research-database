@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
       ) : (
         <h1 className="animate-pulse">Loading...</h1>
       )}
-      <div className="absolute bottom-[10vh] right-[10vw] [&>*]:opacity-55">
+      <div className="absolute bottom-[10vh] right-[10vw] [&>*]:opacity-55 lg:hidden">
         <Joystick
           size={120}
           baseColor="rgba(150, 150, 150, 0.3)"
@@ -88,22 +88,6 @@ const HomePage: React.FC = () => {
           move={handleMove}
           // stop={handleStop}
         ></Joystick>
-        {/* <ReactNipple
-          className="joystick is-relative"
-          options={{
-            mode: "static",
-            color: "hsl(219, 84%, 56%)",
-            position: { top: "50%", left: "50%" },
-            size: 150,
-            treshold: 0.1,
-          }}
-          style={{
-            width: 250,
-            height: 250,
-          }}
-          onDir={handleJoystickDir}
-        /> */}
-        {/* <Joystick /> */}
       </div>
     </>
   );
