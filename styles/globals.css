@@ -134,7 +134,7 @@ h4 {
 }
 
 .main-container {
-  @apply max-w-[1500px] w-[95vw];
+  @apply max-w-[1200px] w-[95vw];
 }
 
 .form-textarea {

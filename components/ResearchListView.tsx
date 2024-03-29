@@ -6,7 +6,7 @@ import ResearchHeader from "./ResearchHeader";
 import { AiOutlineDelete } from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
 import { ConfirmToast } from "react-confirm-toast";
-
+import formatDateToThai from "../utils/formatDateToThai";
 const ResearchListView = ({
   research,
   tagName,
@@ -54,6 +54,7 @@ const ResearchListView = ({
         title={research.header}
         tagName={tagName}
         tagColor={tagColor}
+        date={formatDateToThai(research.date)}
       />
       <p className="text-gray-600">{research.organization}</p>
 

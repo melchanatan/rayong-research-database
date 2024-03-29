@@ -88,7 +88,7 @@ const BlobBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className=" blur-[100px]">
+    <div className=" blur-[150px]">
       {blobs.map((blob, index) => {
         const { x, y, color, px, py, width, height, blur } = blob;
         const customStyle = {

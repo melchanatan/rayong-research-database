@@ -58,13 +58,13 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
   }, []);
 
   return (
-    <ul className="main-container py-[7vh]">
+    <ul className="main-container py-[7vh] min-h-screen">
       <TabNav />
 
       <li className="flex gap-6  flex-col md:flex-row my-6 md:my-0">
         <ul
           dir="rtl"
-          className=" w-full md:w-[55%] flex flex-col gap-3 overflow-y-auto md:h-[80vh] md:pl-3"
+          className=" w-full md:w-[55%] flex flex-col gap-3 overflow-y-auto md:h-[80vh] "
         >
           {isError ? (
             <div className="w-full h-[200px] md:h-[80vh] flex justify-center items-center">
@@ -90,7 +90,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
           )}
         </ul>
 
-        <div className="flex-1 glassmorphism py-8 rounded-lg px-6 order-[-1] md:order-1">
+        <div className="flex-1 glassmorphism py-8 rounded-lg px-6 order-[-1] md:order-1 hidden sm:block">
           <h3 className="mb-6">บทคัดย่อ</h3>
           {isLoading ? (
             <ParagraphSkeleton lines={10} />

@@ -14,7 +14,7 @@ const ResearchHeader = ({ title, tagName, date, tagColor }) => {
           {tagName}
         </span>
       </h3>
-      <p className="text-gray-600">เผยแพร่วันที่ 12 กย. 2556</p>
+      <p className="text-gray-600">เผยแพร่วันที่ {date}</p>
     </div>
   );
 };
