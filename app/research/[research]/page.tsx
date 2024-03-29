@@ -3,7 +3,7 @@ import DynamicFileIcon from "@/components/DynamicFileIcon";
 import ParagraphSkeleton from "@/components/ParagraphSkeleton";
 import ResearchHeader from "@/components/ResearchHeader";
 import TabNav from "@/components/TabNav";
-import formatDateToThai from "@/utils/formatDateToThai";
+import formatDateToThai from "@/utils/FormatDateToThai";
 import React, { useState } from "react";
 import { FaLessThanEqual } from "react-icons/fa6";
 
