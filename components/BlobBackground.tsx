@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 
 const BlobBackground: React.FC = () => {
-  const isMobile = window.innerWidth < 768;
   const blueGradient: string =
     "radial-gradient(circle, rgba(43,170,217,1) 0%, rgba(13,84,149,1) 68%)";
   const greenGradient: string =
@@ -84,7 +83,7 @@ const BlobBackground: React.FC = () => {
   }
 
   useEffect(() => {
-    if (isMobile) {
+    if (window!.innerWidth < 768) {
       return;
     }
     var interval = setInterval(moveBlob, 3000);
