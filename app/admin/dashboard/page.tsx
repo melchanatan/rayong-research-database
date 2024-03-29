@@ -41,7 +41,7 @@ const DashboardPage = () => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-[400px_1fr] gap-5 min-h-50vh">
+          <div className="flex-col flex md:grid grid-cols-[400px_1fr] gap-5 min-h-50vh">
             <div className="flex flex-col gap-2 glassmorphism rounded-lg p-4">
               <h3>All Topics</h3>
 

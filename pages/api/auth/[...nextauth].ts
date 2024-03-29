@@ -26,7 +26,7 @@ export default NextAuth({
 })
 
 const checkUsernameExists = async (email) => {
-  const verifyEmail = ["chanatan.melmel@gmail.com"]
+  const verifyEmail = ["chanatan.melmel@gmail.com", "rayongcd@gmail.com"]
   if (verifyEmail.includes(email)) {
     return true
   }

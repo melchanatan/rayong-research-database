@@ -7,7 +7,7 @@ import React, { useContext, useEffect, useReducer, useState } from "react";
 
 const TagInputForm = ({ state, dispatch }) => {
   const [tag, setTag] = useState("");
-  const { topics } = useContext(TopicContext);
+  const { topics, isLoading } = useContext(TopicContext);
   const [filteredTopics, setFilteredTopics] = useState([]);
   const [flag, setFlag] = useState(false);
 
@@ -44,7 +44,7 @@ const TagInputForm = ({ state, dispatch }) => {
         <span className="font-normal">(#ป่าไม้​ #การคมนาคม)</span>
       </span>
 
-      {topics.current.length > 0 ? (
+      {!isLoading ? (
         <input
           value={tag}
           onClick={handleClick}
