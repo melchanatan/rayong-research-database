@@ -7,6 +7,7 @@ import BlobBackground from "@/components/BlobBackground";
 import ParticleComponent from "@/components/ParticleComponent";
 import Searchbar from "@/components/Searchbar";
 import InfiniteScroll from "@/components/InfiniteScroll";
+import { Joystick } from "react-joystick-component";
 import {
   TopicContext,
   TopicContextProvider,
@@ -38,6 +39,19 @@ const HomePage: React.FC = () => {
     setIsDragging(false);
   };
 
+  const handleJoystickDir = (e) => {
+    console.log(e);
+  };
+
+  const handleMove = (e) => {
+    const { x, y } = e;
+    const oldX = position.x;
+    const oldY = position.y;
+    const newX = oldX + x * 2;
+    const newY = oldY - y * 2;
+    setPosition({ x: newX, y: newY });
+    console.log(x, y);
+  };
   return (
     <>
       {!isLoading ? (
@@ -66,6 +80,31 @@ const HomePage: React.FC = () => {
       ) : (
         <h1 className="animate-pulse">Loading...</h1>
       )}
+      <div className="absolute bottom-[10vh] right-[10vw] [&>*]:opacity-55">
+        <Joystick
+          size={120}
+          baseColor="rgba(150, 150, 150, 0.3)"
+          stickColor="rgba(150, 150, 150, 0.3)"
+          move={handleMove}
+          // stop={handleStop}
+        ></Joystick>
+        {/* <ReactNipple
+          className="joystick is-relative"
+          options={{
+            mode: "static",
+            color: "hsl(219, 84%, 56%)",
+            position: { top: "50%", left: "50%" },
+            size: 150,
+            treshold: 0.1,
+          }}
+          style={{
+            width: 250,
+            height: 250,
+          }}
+          onDir={handleJoystickDir}
+        /> */}
+        {/* <Joystick /> */}
+      </div>
     </>
   );
 };
