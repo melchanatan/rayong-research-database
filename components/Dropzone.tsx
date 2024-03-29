@@ -89,7 +89,7 @@ const Dropzone = ({ files, setFiles, className }) => {
       </div>
 
       {/* Preview */}
-      <section className="mt-10">
+      <section className="mt-3">
         <div className="flex gap-4">
           <button
             type="button"
@@ -97,13 +97,6 @@ const Dropzone = ({ files, setFiles, className }) => {
             className="mt-1 rounded-md border border-rose-400 px-3 text-[12px] font-bold uppercase tracking-wider text-stone-500 transition-colors hover:bg-rose-400 hover:text-white"
           >
             Remove all files
-          </button>
-
-          <button
-            onClick={submit}
-            className="ml-auto mt-1 rounded-md border border-purple-400 px-3 text-[12px] font-bold uppercase tracking-wider text-stone-500 transition-colors hover:bg-purple-400 hover:text-white"
-          >
-            Upload to Cloudinary
           </button>
         </div>
 

@@ -23,14 +23,12 @@ const AdminPublishPage = () => {
   const router = useRouter();
   const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [files, setFiles] = useState([]);
 
   const createItem = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-
-    const csvContent =
-      "Name,Age,Email\nJohn Doe,30,john@example.com\nJane Smith,25,jane@example.com";
     const formData = new FormData();
 
     // append metadata to formdata
@@ -52,18 +50,19 @@ const AdminPublishPage = () => {
         process.env.NEXT_PUBLIC_API_URL + "/postDoc",
         {
           method: "POST",
-
           body: formData,
         }
       );
 
-      console.log(response);
-
-      // if (response.ok) {
-      //   router.push("/admin");
-      // }
+      if (response.ok) {
+        router.push("/admin/dashboard");
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message);
+      }
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
+      setErrorMessage("เกิดข้อผิดพลาดโปรดกรอกข้อมูลให้ครบถ้วน");
     } finally {
       setSubmitting(false);
     }
@@ -76,7 +75,7 @@ const AdminPublishPage = () => {
 
   return (
     <PublishFormContext.Provider value={{ state, dispatch }}>
-      <section className="max-w-[1200px] w-full px-10 mt-10">
+      <section className="max-w-[1200px] w-full px-2 md:px-10 mt-10">
         <h1 className="head_text text-left">
           <span>เพยแพร่งานวิจัย</span>
         </h1>
@@ -120,18 +119,25 @@ const AdminPublishPage = () => {
             </span>
             <Dropzone files={files} setFiles={setFiles} />
           </label>
-          <div className="flex items-center mx-3 mb-5 gap-10">
-            <a href="/admin/" className="text-gray-500 text-md">
-              Cancel
-            </a>
-            <button
-              type="submit"
-              onClick={(e) => createItem(e)}
-              disabled={submitting}
-              className="text-white px-5 py-1.5 text-md rounded-full bg-primary-green"
-            >
-              ส่งคำตอบ
-            </button>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center mx-3 mb-5 gap-10">
+              <a href="/admin/" className="text-gray-500 text-md">
+                Cancel
+              </a>
+              <button
+                type="submit"
+                onClick={(e) => createItem(e)}
+                disabled={submitting}
+                className="text-white px-5 py-1.5 text-md rounded-full bg-primary-green hover:brightness-75 active:scale-75"
+              >
+                {submitting ? "กำลังส่งคำตอบ..." : "ส่งคำตอบ"}
+              </button>
+            </div>
+            {errorMessage && (
+              <p className="text-white bg-red-500 rounded-full px-3 py-1">
+                <span>{errorMessage}</span>
+              </p>
+            )}
           </div>
         </form>
       </section>

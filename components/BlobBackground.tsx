@@ -88,7 +88,7 @@ const BlobBackground: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className=" blur-[100px]">
       {blobs.map((blob, index) => {
         const { x, y, color, px, py, width, height, blur } = blob;
         const customStyle = {
@@ -99,10 +99,10 @@ const BlobBackground: React.FC = () => {
           width: `${width}rem`,
           height: `${height}rem`,
           background: `${color}`,
-          filter: `blur(${blur}px)`,
-          WebkitFilter: `blur(${blur}px)`,
-          MozFilter: `blur(${blur}px)`,
-          msFilter: `${blur}px`,
+          // filter: `blur(${blur}px)`,
+          // WebkitFilter: `blur(${blur}px)`,
+          // MozFilter: `blur(${blur}px)`,
+          // msFilter: `${blur}px`,
         };
         return (
           <svg
@@ -112,7 +112,7 @@ const BlobBackground: React.FC = () => {
           ></svg>
         );
       })}
-    </>
+    </div>
   );
 };
 

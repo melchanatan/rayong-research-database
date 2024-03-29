@@ -29,7 +29,7 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="main-container py-[7vh] h-screen flex flex-col gap-2">
+    <div className="main-container py-[7vh] flex min-h-screen flex-col gap-2">
       <h1>Dashboard</h1>
       <p>This is the dashboard page.</p>
 
@@ -62,15 +62,15 @@ const DashboardPage = () => {
               ))}
             </div>
             <div className="glassmorphism rounded-lg p-4">
-              <h3>Research in Topic</h3>
+              <h3 className="mb-2">Research in Topic</h3>
 
               {researchesLoading ? (
                 <p className=" animate-pulse">Loading...</p>
               ) : researches.length <= 0 ? (
                 <p className=" text-gray-500">please select a topic</p>
               ) : (
-                [
-                  researches.map((research, index) => (
+                <div className="flex flex-col gap-4">
+                  {researches.map((research, index) => (
                     <ResearchListView
                       key={research.id + "-dashboard"}
                       research={research}
@@ -79,8 +79,8 @@ const DashboardPage = () => {
                       admin={true}
                       setPreview={() => {}}
                     />
-                  )),
-                ]
+                  ))}
+                </div>
               )}
             </div>
           </div>
