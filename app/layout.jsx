@@ -1,5 +1,5 @@
 "use client";
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import BlobBackground from "@/components/BlobBackground";
@@ -10,6 +10,7 @@ import "dotenv/config";
 import { TabContextProvider } from "@/utils/TabContextProvider";
 import { TopicContextProvider } from "@/utils/TopicContextProvider";
 
+// @ts-expect-error
 const inter = Inter({ subsets: ["latin"] });
 
 const RootLayout = ({ children, session }) => {
