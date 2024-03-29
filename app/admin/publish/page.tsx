@@ -19,7 +19,7 @@ import InputForm from "@/components/InputForm";
 import { useSession } from "next-auth/react";
 import TagInputForm from "@/components/TagInputForm";
 
-const PublishPage = () => {
+const AdminPublishPage = () => {
   const router = useRouter();
   const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   const [submitting, setSubmitting] = useState(false);
@@ -139,4 +139,4 @@ const PublishPage = () => {
   );
 };
 
-export default PublishPage;
+export default AdminPublishPage;
