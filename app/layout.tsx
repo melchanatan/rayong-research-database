@@ -12,13 +12,7 @@ import { TopicContextProvider } from "@/utils/TopicContextProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const RootLayout = ({
-  children,
-  session,
-}: Readonly<{
-  children: React.ReactNode;
-  session: Session | undefined;
-}>) => {
+const RootLayout = ({ children, session }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
