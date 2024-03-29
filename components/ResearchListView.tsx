@@ -29,7 +29,17 @@ const ResearchListView = ({
     router.push("/research/" + id);
   };
 
-  const deleteResearch = () => {
+  const deleteResearch = async () => {
+    if (!admin) return;
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_API_URL + "/delDoc/" + id
+      );
+      alert(res.status);
+    } catch {
+      console.log("error");
+    }
+
     console.log("delete");
   };
 
@@ -60,7 +70,7 @@ const ResearchListView = ({
           theme="light"
         >
           <div className="absolute right-[2rem] top-[50%] translate-y-[-50%]">
-            <button className=" bg-red-400  p-5 rounded-full">
+            <button className=" bg-red-400  p-5 rounded-full hover:brightness-75 active:scale-75">
               <AiOutlineDelete className="w-6 h-6 fill-white" />
             </button>
           </div>

@@ -1,13 +1,8 @@
 "use client";
 import ParagraphSkeleton from "@/components/ParagraphSkeleton";
-import ResearchHeader from "@/components/ResearchHeader";
 import ResearchListView from "@/components/ResearchListView";
 import TabNav from "@/components/TabNav";
-import { TabContext } from "@/utils/TabContextProvider";
-import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import { IoIosArrowBack } from "react-icons/io";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
   const [researches, setResearches] = useState([]);
