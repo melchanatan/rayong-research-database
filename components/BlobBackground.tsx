@@ -1,5 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+
+import blob1 from "./assets/blob-1.svg";
+import test from "/public/next.svg";
+// import blob2 from "../assets/blob-blue-2.svg";
+// import blob3 from "../assets/blob-blue-3.svg";
 
 const BlobBackground: React.FC = () => {
   const blueGradient: string =
@@ -11,62 +17,45 @@ const BlobBackground: React.FC = () => {
     {
       x: -100,
       y: -200,
-      color: blueGradient,
+      src: "/blob-1.svg",
       px: "top",
       py: "left",
-      width: 20,
-      height: 20,
-      blur: 140,
     },
     {
       x: 0,
       y: 0,
-      color: greenGradient,
+      src: "/blob-2.svg",
       px: "top",
       py: "right",
-      width: 10,
-      height: 20,
-      blur: 120,
     },
     {
       x: 200,
       y: -200,
-      color: blueGradient,
+      src: "/blob-3.svg",
+
       px: "top",
       py: "right",
-      width: 10,
-      height: 20,
-      blur: 130,
     },
     {
-      x: 100,
-      y: 20,
-      color: blueGradient,
+      x: 200,
+      y: -200,
+      src: "/blob-1.svg",
       px: "bottom",
       py: "right",
-      width: 20,
-      height: 20,
-      blur: 250,
     },
     {
       x: 100,
       y: 20,
-      color: blueGradient,
+      src: "/blob-3.svg",
       px: "bottom",
       py: "left",
-      width: 10,
-      height: 20,
-      blur: 170,
     },
     {
       x: 100,
       y: 20,
-      color: greenGradient,
+      src: "/blob-2.svg",
       px: "",
       py: "left",
-      width: 10,
-      height: 20,
-      blur: 170,
     },
   ]);
 
@@ -93,26 +82,24 @@ const BlobBackground: React.FC = () => {
   return (
     <div className="w-screen h-screen">
       {blobs.map((blob, index) => {
-        const { x, y, color, px, py, width, height, blur } = blob;
+        const { x, y, px, py, src } = blob;
         const customStyle = {
           top: px === "top" ? `${y}px` : "auto",
           bottom: px === "bottom" ? `${y}px` : "auto",
           left: py === "left" ? `${x}px` : "auto",
           right: py === "right" ? `${x}px` : "auto",
-          width: `${width}rem`,
-          height: `${height}rem`,
-          background: `${color}`,
-          // filter: `blur(${blur}px)`,
-          // WebkitFilter: `blur(${blur}px)`,
-          // MozFilter: `blur(${blur}px)`,
-          // msFilter: `${blur}px`,
         };
         return (
-          <svg
-            key={"blob" + index}
+          <Image
             className={`rounded-full absolute opacity-50 transition-all duration-[3000ms]`}
+            src={src}
+            alt="Vercel Logo"
+            width={600}
+            height={600}
+            key={"blob" + index}
             style={customStyle}
-          ></svg>
+            priority
+          />
         );
       })}
     </div>
