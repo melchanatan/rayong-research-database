@@ -47,8 +47,8 @@ const HomePage: React.FC = () => {
     const { x, y } = e;
     const oldX = position.x;
     const oldY = position.y;
-    const newX = oldX + x * 2.7;
-    const newY = oldY - y * 2.7;
+    const newX = oldX + x * 4;
+    const newY = oldY - y * 4;
     setPosition({ x: newX, y: newY });
     console.log(x, y);
   };
@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
       ) : (
         <h1 className="animate-pulse">Loading...</h1>
       )}
-      <div className="absolute bottom-[10vh] right-[10vw] [&>*]:opacity-55 lg:hidden">
+      <div className="absolute bottom-[10vh] right-[10vw] [&>*]:opacity-55 lg:hidden z-10">
         <Joystick
           size={120}
           baseColor="rgba(150, 150, 150, 0.3)"

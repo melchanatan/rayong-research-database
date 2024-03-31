@@ -18,13 +18,13 @@ const RootLayout = ({ children, session }) => {
     <html lang="en">
       <body className={inter.className}>
         <main className="flex min-h-screen flex-col items-center justify-center bg-white text-black relative min-w-screen overflow-hidden">
+          <BlobBackground />
           <TopicContextProvider>
             <SessionProvider session={session}>
               <TabContextProvider>
                 <>
                   <Navbar />
                   {children}
-                  <BlobBackground />
                 </>
               </TabContextProvider>
             </SessionProvider>
