@@ -80,7 +80,7 @@ const BlobBackground: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen">
+    <div className="">
       {blobs.map((blob, index) => {
         const { x, y, px, py, src } = blob;
         const customStyle = {
