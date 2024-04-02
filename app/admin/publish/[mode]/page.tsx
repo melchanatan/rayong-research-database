@@ -111,7 +111,7 @@ const AdminPublishPage = ({ params }) => {
   if (!session) return <h1>Something went wrong</h1>;
   if (!session.usernameExists)
     return <div className="gap-2 flex items-center">User unauthorized</div>;
-  if (isDocumentNotFound) return <h1>Document not found</h1>;
+  if (isDocumentNotFound && id != "new") return <h1>Document not found</h1>;
 
   return (
     <PublishFormContext.Provider value={{ state, dispatch }}>

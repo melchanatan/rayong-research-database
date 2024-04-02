@@ -38,7 +38,7 @@ const Menu = () => {
         <a href="/" className="link-button">
           Home
         </a>
-        <a href="/admin/publish" className="link-button">
+        <a href="/admin/publish/new" className="link-button">
           Publish
         </a>
         <a href="/admin/dashboard" className="link-button">
