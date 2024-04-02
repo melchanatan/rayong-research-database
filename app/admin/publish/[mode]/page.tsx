@@ -52,6 +52,7 @@ const AdminPublishPage = ({ params }) => {
         process.env.NEXT_PUBLIC_API_URL + "/postDoc",
         {
           method: "POST",
+          body: formData,
         }
       );
 
@@ -94,6 +95,7 @@ const AdminPublishPage = ({ params }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "access-control-allow-origin": "*",
         },
 
         body: JSON.stringify(state),
