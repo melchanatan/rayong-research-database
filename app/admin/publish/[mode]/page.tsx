@@ -51,7 +51,7 @@ const AdminPublishPage = ({ params }) => {
       const response = await fetch(
         process.env.NEXT_PUBLIC_API_URL + "/postDoc",
         {
-          method: "PATCH",
+          method: "POST",
           body: formData,
         }
       );
