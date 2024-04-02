@@ -80,7 +80,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
                 <ResearchListView
                   key={"research" + index}
                   research={research}
-                  tagName={params.topic}
+                  tagName={decodeURIComponent(params.topic)}
                   id={researches[index].id}
                   setPreview={setPreview}
                   tagColor={tagColor}
