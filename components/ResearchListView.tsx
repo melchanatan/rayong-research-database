@@ -7,6 +7,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { confirmAlert } from "react-confirm-alert";
 import { ConfirmToast } from "react-confirm-toast";
 import formatDateToThai from "../utils/FormatDateToThai";
+import { MdEdit } from "react-icons/md";
+
 const ResearchListView = ({
   research,
   tagName,
@@ -59,23 +61,33 @@ const ResearchListView = ({
       <p className="text-gray-600">{research.organization}</p>
 
       {admin ? (
-        <ConfirmToast
-          asModal={false}
-          childrenClassName="margin-top-10"
-          customCancel="No"
-          customConfirm="Confirm"
-          customFunction={deleteResearch}
-          message="Do you want to confirm?"
-          position="top-right" //will be ignored cause asModal=true
-          showCloseIcon={false}
-          theme="light"
-        >
-          <div className="absolute right-[2rem] top-[50%] translate-y-[-50%]">
-            <button className=" bg-red-400  p-5 rounded-full hover:brightness-75 active:scale-75">
-              <AiOutlineDelete className="w-6 h-6 fill-white" />
+        <div className="ml-auto flex flex-row gap-5">
+          <div className="">
+            <button
+              className=" bg-blue-400 p-5 rounded-full hover:brightness-75 active:scale-75"
+              onClick={() => router.push("/admin/publish/" + id)}
+            >
+              <MdEdit className="w-6 h-6 fill-white" />
             </button>
           </div>
-        </ConfirmToast>
+          <ConfirmToast
+            asModal={false}
+            childrenClassName="margin-top-10"
+            customCancel="No"
+            customConfirm="Confirm"
+            customFunction={deleteResearch}
+            message="Do you want to confirm?"
+            position="top-right" //will be ignored cause asModal=true
+            showCloseIcon={false}
+            theme="light"
+          >
+            <div className="">
+              <button className=" bg-red-400  p-5 rounded-full hover:brightness-75 active:scale-75">
+                <AiOutlineDelete className="w-6 h-6 fill-white" />
+              </button>
+            </div>
+          </ConfirmToast>
+        </div>
       ) : null}
     </a>
   );

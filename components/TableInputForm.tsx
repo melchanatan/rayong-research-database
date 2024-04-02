@@ -36,60 +36,57 @@ const TableInputForm = () => {
         องกรณ์ของผู้ค้นคว้า
       </span>
       <span></span>
-      {state.researchers?.map((researcher: Researcher, index: number) => (
-        <>
-          <input
-            value={researcher.name}
-            onChange={(e) => {
-              e.preventDefault();
-              dispatch({
-                type: "EDIT_RESEARCHER_NAME",
-                payload: { index: index, value: e.target.value },
-              });
-            }}
-            placeholder="พิมพ์ตรงนี้..."
-            required
-            className="form-input"
-          />
-          <input
-            value={researcher.organization}
-            onChange={(e) => {
-              e.preventDefault();
-              dispatch({
-                type: "EDIT_RESEARCHER_ORGANIZATION",
-                payload: { index: index, value: e.target.value },
-              });
-            }}
-            placeholder="พิมพ์ตรงนี้..."
-            required
-            className="form-input"
-          />
-          <button
-            className=" bg-red-400 square-icon-button"
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch({
-                type: "REMOVE_RESEARCHER",
-                payload: researcher,
-              });
-            }}
-          >
-            <IoTrashOutline className="w-[1.6rem] h-[1.6rem] fill-white stroke-white " />
-          </button>
-        </>
-      ))}
+      {state.researchers &&
+        state.researchers?.map((researcher: Researcher, index: number) => (
+          <>
+            <input
+              value={researcher.name}
+              onChange={(e) => {
+                e.preventDefault();
+                dispatch({
+                  type: "EDIT_RESEARCHER_NAME",
+                  payload: { index: index, value: e.target.value },
+                });
+              }}
+              placeholder="พิมพ์ตรงนี้..."
+              className="form-input"
+            />
+            <input
+              value={researcher.organization}
+              onChange={(e) => {
+                e.preventDefault();
+                dispatch({
+                  type: "EDIT_RESEARCHER_ORGANIZATION",
+                  payload: { index: index, value: e.target.value },
+                });
+              }}
+              placeholder="พิมพ์ตรงนี้..."
+              className="form-input"
+            />
+            <button
+              className=" bg-red-400 square-icon-button"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch({
+                  type: "REMOVE_RESEARCHER",
+                  payload: researcher,
+                });
+              }}
+            >
+              <IoTrashOutline className="w-[1.6rem] h-[1.6rem] fill-white stroke-white " />
+            </button>
+          </>
+        ))}
       <input
         value={currentInputCol1}
         onChange={(e) => setCurrentInputCol1(e.target.value)}
         placeholder="พิมพ์ตรงนี้..."
-        required
         className="form-input"
       />
       <input
         value={currentInputCol2}
         onChange={(e) => setCurrentInputCol2(e.target.value)}
         placeholder="พิมพ์ตรงนี้..."
-        required
         className="form-input"
       />
 

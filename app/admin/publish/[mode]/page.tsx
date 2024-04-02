@@ -6,10 +6,10 @@ import React, {
   createContext,
   use,
   useContext,
+  useEffect,
   useReducer,
   useState,
 } from "react";
-import { IoIosAdd } from "react-icons/io";
 import {
   PublishFormContext,
   publishFormDetails,
@@ -19,11 +19,13 @@ import InputForm from "@/components/InputForm";
 import { useSession } from "next-auth/react";
 import TagInputForm from "@/components/TagInputForm";
 
-const AdminPublishPage = () => {
+const AdminPublishPage = ({ params }) => {
+  const id = params.mode;
   const router = useRouter();
   const [state, dispatch] = useReducer(publishFormReducer, publishFormDetails);
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDocumentNotFound, setIsDocumentNotFound] = useState(false);
   const [files, setFiles] = useState([]);
 
   const createItem = async (e) => {
@@ -50,7 +52,6 @@ const AdminPublishPage = () => {
         process.env.NEXT_PUBLIC_API_URL + "/postDoc",
         {
           method: "POST",
-          body: formData,
         }
       );
 
@@ -68,16 +69,55 @@ const AdminPublishPage = () => {
     }
   };
 
+  const fetchFormData = async () => {
+    if (id != "add") {
+      try {
+        const req = await fetch(
+          process.env.NEXT_PUBLIC_API_URL + "/getDocData/" + id
+        );
+
+        const formData = await req.json();
+
+        dispatch({ type: "SET_ALL", payload: formData });
+      } catch {
+        setIsDocumentNotFound(true);
+        return;
+      }
+    }
+  };
+
+  const editItems = async () => {
+    setSubmitting(true);
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/editDoc/" + id,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(state),
+      }
+    );
+    router.push("/admin/dashboard");
+  };
+
+  useEffect(() => {
+    if (id != "add") {
+      fetchFormData();
+    }
+  }, []);
   const { data: session } = useSession();
   if (!session) return <h1>Something went wrong</h1>;
   if (!session.usernameExists)
     return <div className="gap-2 flex items-center">User unauthorized</div>;
+  if (isDocumentNotFound) return <h1>Document not found</h1>;
 
   return (
     <PublishFormContext.Provider value={{ state, dispatch }}>
       <section className="max-w-[1200px] w-full px-2 md:px-10 mt-10">
         <h1 className="head_text text-left">
-          <span>เพยแพร่งานวิจัย</span>
+          <span> {id != "new" ? "แก้ไขงานวิจัย" : "เพยแพร่งานวิจัย"}</span>
         </h1>
         <form className="mt-3 w-full max-w-screen-2xl flex flex-col gap-7 box-container">
           <InputForm
@@ -96,7 +136,8 @@ const AdminPublishPage = () => {
             value={state.abstract}
           />
 
-          <TagInputForm state={state} dispatch={dispatch} />
+          {id == "new" && <TagInputForm state={state} dispatch={dispatch} />}
+
           <InputForm
             label="องกรณ์"
             onChange={(e) =>
@@ -113,20 +154,22 @@ const AdminPublishPage = () => {
             value={state.contactEmail}
           />
 
-          <label>
-            <span className=" font-semibold text-base text-gray-700">
-              ไฟล์ประกอบการวิจัยของคุณ
-            </span>
-            <Dropzone files={files} setFiles={setFiles} />
-          </label>
+          {id == "new" && (
+            <label>
+              <span className=" font-semibold text-base text-gray-700">
+                ไฟล์ประกอบการวิจัยของคุณ
+              </span>
+              <Dropzone files={files} setFiles={setFiles} />
+            </label>
+          )}
           <div className="flex flex-col gap-1">
             <div className="flex items-center mx-3 mb-5 gap-10">
-              <a href="/admin/" className="text-gray-500 text-md">
+              <a href="/admin/dashboard" className="text-gray-500 text-md">
                 Cancel
               </a>
               <button
                 type="submit"
-                onClick={(e) => createItem(e)}
+                onClick={id == "new" ? createItem : editItems}
                 disabled={submitting}
                 className="text-white px-5 py-1.5 text-md rounded-full bg-primary-green hover:brightness-75 active:scale-75"
               >

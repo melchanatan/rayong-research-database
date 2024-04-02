@@ -58,6 +58,16 @@ function publishFormReducer(state: PublishFormState, action: Action) {
       };
     case "SET_ABSTRACT":
       return { ...state, abstract: action.payload };
+    case "SET_ALL":
+      return {
+        ...state,
+        header: action.payload.header,
+        tag: action.payload.tag,
+        abstract: action.payload.abstract,
+        organization: action.payload.organization,
+        contactEmail: action.payload.contactEmail,
+        researchers: action.payload.researchers,
+      };
     default:
       return state;
   }

@@ -28,7 +28,6 @@ const InputForm = ({
           value={value}
           onChange={onChange}
           placeholder="พิมพ์ตรงนี้..."
-          required
           className="form-input"
         />
       )}

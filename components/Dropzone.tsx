@@ -72,7 +72,7 @@ const Dropzone = ({ files, setFiles, className }) => {
         {...getRootProps({
           refKey: "innerRef",
           noClick: true,
-          noKeyboard: true,
+          // noKeyboard: true,
         })}
       >
         <input {...getInputProps({ name: "file" })} />
