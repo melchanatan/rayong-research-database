@@ -92,9 +92,9 @@ const AdminPublishPage = ({ params }) => {
       process.env.NEXT_PUBLIC_API_URL + "/editDoc/" + id,
       {
         method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          "Content-Type": "application/json",
+        },
 
         body: JSON.stringify(state),
       }
@@ -108,9 +108,9 @@ const AdminPublishPage = ({ params }) => {
     }
   }, []);
   const { data: session } = useSession();
-  if (!session) return <h1>Something went wrong</h1>;
-  if (!session.usernameExists)
-    return <div className="gap-2 flex items-center">User unauthorized</div>;
+  // if (!session) return <h1>Something went wrong</h1>;
+  // // if (!session.usernameExists)
+  //   return <div className="gap-2 flex items-center">User unauthorized</div>;
   if (isDocumentNotFound && id != "new") return <h1>Document not found</h1>;
 
   return (
