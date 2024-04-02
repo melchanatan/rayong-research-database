@@ -51,7 +51,7 @@ const AdminPublishPage = ({ params }) => {
       const response = await fetch(
         process.env.NEXT_PUBLIC_API_URL + "/postDoc",
         {
-          method: "POST",
+          method: "PATCH",
           body: formData,
         }
       );
@@ -92,10 +92,9 @@ const AdminPublishPage = ({ params }) => {
     const response = await fetch(
       process.env.NEXT_PUBLIC_API_URL + "/editDoc/" + id,
       {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify(state),
       }
