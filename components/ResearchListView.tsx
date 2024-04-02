@@ -33,12 +33,12 @@ const ResearchListView = ({
 
   const deleteResearch = async () => {
     if (!admin) return;
-    router.push("/admin/dashboard");
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_API_URL + "/delDoc/" + id
       );
       alert(res.status);
+      router.push("/admin/dashboard");
     } catch {
       console.log("error");
     }
