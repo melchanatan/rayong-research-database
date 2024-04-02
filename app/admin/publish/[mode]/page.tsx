@@ -95,9 +95,8 @@ const AdminPublishPage = ({ params }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "access-control-allow-origin": "*",
+          // "Access-Control-Allow-Origin": "*",
         },
-
         body: JSON.stringify(state),
       }
     );
