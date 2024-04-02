@@ -92,9 +92,9 @@ const AdminPublishPage = ({ params }) => {
       process.env.NEXT_PUBLIC_API_URL + "/editDoc/" + id,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
 
         body: JSON.stringify(state),
       }
