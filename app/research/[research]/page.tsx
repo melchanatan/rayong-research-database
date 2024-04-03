@@ -56,7 +56,7 @@ const ResearchPage = ({ params }) => {
             <div className="gap-2 flex flex-col">
               {isLoading ? (
                 <FileSkeleton />
-              ) : content.files ? (
+              ) : content.files.lenght > 0 ? (
                 [
                   content.files?.map((file, index) => (
                     <FileDownload

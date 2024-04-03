@@ -15,6 +15,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
   const [isError, setIsError] = useState(false);
   const [preview, setPreview] = useState("");
   const [tagColor, setTagColor] = useState("#ffffff");
+  const [contentCount, setContentCount] = useState(0);
 
   const fetchResearch = async () => {
     const researchSnippets = await fetch(
@@ -44,6 +45,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
       const color = await fetchTagColor();
       setTagColor(color);
       setResearches(researchSnippets);
+      setContentCount(researchSnippets.length);
       setIsLoading(false);
       return researches;
     } catch (err) {
@@ -61,7 +63,10 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
     <ul className="main-container py-[7vh] min-h-screen">
       <TabNav />
 
-      <li className="flex gap-6  flex-col md:flex-row my-6 md:my-0">
+      <li className="flex flex-col md:flex-row my-6 md:my-0 md:gap-6">
+        <p className="text-xl mb-2 md:hidden">
+          หัวข้อ: {decodeURIComponent(params.topic)} ({contentCount} บทความ)
+        </p>
         <ul
           dir="rtl"
           className=" w-full md:w-[55%] flex flex-col gap-3 overflow-y-auto md:h-[80vh] "
@@ -92,6 +97,7 @@ const TopicPage: React.FC = ({ params }: { params: { topic: string } }) => {
 
         <div className="flex-1 glassmorphism py-8 rounded-lg px-6 order-[-1] md:order-1 hidden sm:block">
           <h3 className="mb-6">บทคัดย่อ</h3>
+
           {isLoading ? (
             <ParagraphSkeleton lines={10} />
           ) : preview == "" ? (

@@ -41,14 +41,14 @@ const defaultTopics: Topic[] = [
   },
 ];
 
-const maxResearchCounts = 20;
+const maxResearchCounts = 17;
 
 const setTopicPosition = (topics) => {
   const positions: Position[] = [];
   const windowWidth = window!.innerWidth;
   const windowHeight = window!.innerHeight;
   topics.forEach((topic) => {
-    const position: Position = {
+    var newPostition: Position = {
       x:
         windowWidth * 0.5 +
         (((maxResearchCounts - 5 - topic.researchCounts) / maxResearchCounts) *
@@ -62,23 +62,38 @@ const setTopicPosition = (topics) => {
           Math.random() * 100 * (Math.random() < 0.5 ? -1 : 1)) *
           (Math.random() < 0.5 ? -1 : 1),
     };
-    positions.push(position);
 
-    positions.forEach((p) => {
+    // check overlap radius 300
+    let isOverlap = false;
+    positions.forEach((position) => {
       if (
-        Math.abs(p.x - position.x) < 200 &&
-        Math.abs(p.y - position.y) < 200
+        Math.abs(position.x - newPostition.x) < 200 &&
+        Math.abs(position.y - newPostition.y) < 200
       ) {
-        p = {
-          x:
-            Math.random() * windowWidth * 0.5 -
-            (topic.researchCounts / 11) * windowWidth * 0.5,
-          y:
-            windowHeight * 0.5 -
-            (topic.researchCounts / 11) * windowHeight * 0.5,
-        };
+        isOverlap = true;
       }
     });
+
+    if (isOverlap) {
+      newPostition = {
+        x:
+          windowWidth * 0.5 +
+          (((maxResearchCounts - 5 - topic.researchCounts) /
+            maxResearchCounts) *
+            (windowWidth * 0.5) +
+            Math.random() * 100 * (Math.random() < 0.5 ? -1 : 1)) *
+            (Math.random() < 0.5 ? -1 : 1),
+        y:
+          windowHeight * 0.5 +
+          (((maxResearchCounts - 5 - topic.researchCounts) /
+            maxResearchCounts) *
+            (windowHeight * 0.5) +
+            Math.random() * 100 * (Math.random() < 0.5 ? -1 : 1)) *
+            (Math.random() < 0.5 ? -1 : 1),
+      };
+    }
+
+    positions.push(newPostition);
   });
 
   topics.forEach((topic, index) => {

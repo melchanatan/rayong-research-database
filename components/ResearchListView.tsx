@@ -18,7 +18,7 @@ const ResearchListView = ({
   tagColor,
 }) => {
   const router = useRouter();
-  const { setTabs } = useContext(TabContext);
+  const { setTabs, addTab } = useContext(TabContext);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const ResearchListView = ({
       href: "/topic/" + tagName,
     };
 
-    setTabs((prev) => [...prev, newTab]);
+    addTab(newTab);
     router.push("/research/" + id);
   };
 

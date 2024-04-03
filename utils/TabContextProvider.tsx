@@ -10,8 +10,15 @@ const defaultTabs: Tab[] = [
 ];
 const TabContextProvider = ({ children }: { children: JSX.Element }) => {
   const [tabs, setTabs] = useState(defaultTabs);
+
+  const addTab = (tab) => {
+    if (tabs.find((t) => t.name === tab.name)) {
+      return;
+    }
+    setTabs([...tabs, tab]);
+  };
   return (
-    <TabContext.Provider value={{ tabs, setTabs }}>
+    <TabContext.Provider value={{ tabs, setTabs, addTab }}>
       {children}
     </TabContext.Provider>
   );

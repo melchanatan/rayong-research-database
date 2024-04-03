@@ -10,7 +10,7 @@ const TabNav = () => {
     setTabs((prev) => prev.slice(0, index));
   };
   return (
-    <div className="flex items-center mb-4 my-4 mt-[50px]">
+    <div className="flex items-center mb-2 my-4 mt-[50px]">
       {tabs.map((tab, index) => (
         <a
           key={"tab" + index}
